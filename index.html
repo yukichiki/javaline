@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F3F5F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141A21" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Javaライン">
+<title>Javaライン</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F5F2; --surface:#FFFFFF; --ink:#1D2633; --muted:#5B6775; --rule:#D8DDE2;
+  --silver:#506A8E; --gold:#A8740E; --practice:#147A63;
+  --ok:#2C7A4B; --ok-bg:#E3F1E8; --ng:#B23B27; --ng-bg:#F8E5E0; --sel-bg:#FFF2C2; --sel-ink:#5C4500;
+  --code-bg:#EDF0F3; --kw:#3550A8; --str:#94530C; --num:#86369C; --com:#728090; --ann:#147A63;
+  --font:"Zen Kaku Gothic New", system-ui, -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", Meiryo, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Noto Sans Mono CJK JP", monospace;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141A21; --surface:#1B232C; --ink:#E5E9EE; --muted:#97A3B0; --rule:#2D3844;
+    --silver:#93A9C9; --gold:#DDAA48; --practice:#45BE98;
+    --ok:#5CC487; --ok-bg:#183527; --ng:#EE7B66; --ng-bg:#3B201B; --sel-bg:#43391A; --sel-ink:#F4DC8A;
+    --code-bg:#10161C; --kw:#8FA9F2; --str:#E2A866; --num:#D49AE6; --com:#7E8B98; --ann:#45BE98;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141A21; --surface:#1B232C; --ink:#E5E9EE; --muted:#97A3B0; --rule:#2D3844;
+  --silver:#93A9C9; --gold:#DDAA48; --practice:#45BE98;
+  --ok:#5CC487; --ok-bg:#183527; --ng:#EE7B66; --ng-bg:#3B201B; --sel-bg:#43391A; --sel-ink:#F4DC8A;
+  --code-bg:#10161C; --kw:#8FA9F2; --str:#E2A866; --num:#D49AE6; --com:#7E8B98; --ann:#45BE98;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.7;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:left;touch-action:manipulation}
+button:focus-visible{outline:3px solid var(--silver);outline-offset:2px}
+button:disabled{cursor:default}
+h1,h2,h3,p{margin:0}
+#app{max-width:560px;margin:0 auto;padding:16px 16px 104px}
+.loading{padding:40vh 0;text-align:center;color:var(--muted)}
+
+/* ---------- ボタン ---------- */
+.primary{display:block;width:100%;min-height:52px;padding:12px 16px;border-radius:12px;background:var(--ink);color:var(--bg);font-weight:700;text-align:center;font-size:17px}
+.primary:disabled{opacity:.35}
+.ghost{display:block;width:100%;min-height:48px;padding:10px 16px;border-radius:12px;border:1.5px solid var(--rule);text-align:center;font-weight:700}
+.textbtn{min-height:44px;padding:8px 4px;color:var(--muted);text-decoration:underline;text-underline-offset:3px;font-size:14px}
+
+/* ---------- ホーム ---------- */
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin:4px 0 18px}
+.top .app{font-size:14px;color:var(--muted);font-weight:700}
+.top .pos{font-size:24px;font-weight:700;line-height:1.35}
+.top .next{font-size:14px;color:var(--muted)}
+.streak{text-align:right;min-width:72px}
+.streak b{display:block;font-size:30px;line-height:1;font-family:var(--mono)}
+.streak span{font-size:12px;color:var(--muted)}
+.today{position:relative;display:block;width:100%;min-height:92px;padding:16px 18px 16px 26px;border-radius:14px;background:var(--surface);border:1.5px solid var(--rule);overflow:hidden}
+.today::before{content:"";position:absolute;left:0;top:0;bottom:0;width:10px;background:var(--c)}
+.today .t{display:block;font-size:22px;font-weight:700}
+.today .s{display:block;font-size:14px;color:var(--muted)}
+.subrow{display:flex;justify-content:flex-end;margin-top:2px}
+
+.line{margin-top:30px}
+.line h2{display:flex;align-items:center;gap:10px;font-size:18px}
+.line h2 small{font-size:13px;color:var(--muted);font-weight:400}
+.badge{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--c);color:var(--surface);font-family:var(--mono);font-weight:700;font-size:15px}
+.stations{list-style:none;margin:10px 0 0;padding:0}
+.stations li{position:relative}
+.stations li::before{content:"";position:absolute;left:14px;top:0;bottom:0;width:6px;background:var(--c);opacity:.9}
+.stations li:first-child::before{top:26px}
+.stations li:last-child::before{bottom:calc(100% - 26px)}
+.stations li.locked::before,.stations li.locked+li::before{opacity:.25}
+.st{display:flex;align-items:center;gap:14px;width:100%;min-height:52px;padding:6px 0}
+.dot{position:relative;z-index:1;flex:none;width:34px;height:34px;display:grid;place-items:center}
+.dot i{display:block;width:20px;height:20px;border-radius:50%;background:var(--surface);border:4px solid var(--c)}
+.cleared .dot i{background:var(--c)}
+.locked .dot i{border-color:var(--rule)}
+.current .dot i{width:30px;height:30px;border-width:6px;box-shadow:0 0 0 4px var(--bg)}
+.st-body{flex:1;min-width:0}
+.st-name{display:block;font-weight:700;line-height:1.4}
+.st-name em{font-style:normal;font-family:var(--mono);color:var(--c);margin-right:6px}
+.locked .st-name{color:var(--muted)}
+.st-meta{display:block;font-size:13px;color:var(--muted);line-height:1.45}
+.here{flex:none;font-size:12px;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--c);color:var(--surface)}
+.milestone{padding:2px 0 8px 48px;font-size:13px;color:var(--muted)}
+.milestone span{display:inline-block;padding:2px 10px;border:1.5px dashed var(--rule);border-radius:20px}
+
+/* ---------- 下部ナビ ---------- */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--rule);padding-bottom:env(safe-area-inset-bottom,0px)}
+.nav div{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr)}
+.nav button{min-height:58px;text-align:center;font-size:13px;font-weight:700;color:var(--muted);border-top:3px solid transparent}
+.nav button[aria-current="page"]{color:var(--ink);border-top-color:var(--ink)}
+
+/* ---------- 問題画面 ---------- */
+.qhead{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;display:flex;align-items:center;gap:12px;margin:-16px -16px 14px;padding:10px 16px;background:var(--bg);border-bottom:1px solid var(--rule)}
+.qhead .x{width:44px;height:44px;display:grid;place-items:center;font-size:22px;border-radius:10px}
+.bar{flex:1;height:8px;border-radius:4px;background:var(--rule);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ink);transition:width .3s}
+.count{font-family:var(--mono);font-size:14px;min-width:3em;text-align:right}
+.timer{font-family:var(--mono);font-size:14px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--sel-bg);color:var(--sel-ink)}
+.sign{display:flex;align-items:stretch;border-radius:8px;overflow:hidden;border:1.5px solid var(--c);width:max-content;max-width:100%;margin-bottom:12px}
+.sign .sid{background:var(--c);color:var(--surface);font-family:var(--mono);font-weight:700;padding:2px 10px}
+.sign .name{padding:2px 12px;font-size:14px;font-weight:700}
+.qtitle{font-size:20px;line-height:1.4;margin-bottom:6px}
+.qtext{margin-bottom:14px}
+.mat{margin:0 0 14px}
+.mat-label{font-size:12px;color:var(--muted);font-weight:700;margin-bottom:4px}
+.code{background:var(--code-bg);border-radius:10px;padding:10px 0;font-family:var(--mono);font-size:13.5px;line-height:1.6;overflow:hidden}
+.code .ln{display:flex;width:100%;min-height:26px;padding:1px 10px 1px 0;font:inherit;text-align:left}
+.code .ln .no{flex:none;width:2.6em;padding-right:.7em;text-align:right;color:var(--com);user-select:none}
+.code .ln .tx{flex:1;min-width:0;white-space:pre-wrap;word-break:break-all}
+.code.log{font-size:12.5px}
+.code button.ln{min-height:34px;border-left:4px solid transparent}
+.code button.ln.picked{background:var(--sel-bg);border-left-color:var(--sel-ink)}
+.code .ln.right{background:var(--ok-bg);border-left-color:var(--ok)}
+.code .ln.wrong{background:var(--ng-bg);border-left-color:var(--ng)}
+.tapnote{font-size:13px;color:var(--muted);margin-top:4px}
+.hk{color:var(--kw);font-weight:700}.hs{color:var(--str)}.hn{color:var(--num)}.hc{color:var(--com);font-style:italic}.ha{color:var(--ann)}
+.blank{display:inline-block;min-width:3.6em;min-height:30px;margin:1px 2px;padding:0 8px;border-radius:6px;border:2px dashed var(--silver);text-align:center;font-family:var(--mono);font-weight:700;vertical-align:middle;line-height:26px}
+.blank.filled{border-style:solid;background:var(--surface)}
+.blank.right{border-color:var(--ok);background:var(--ok-bg)}
+.blank.wrong{border-color:var(--ng);background:var(--ng-bg)}
+.tbl-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:6px 10px;border-bottom:1px solid var(--rule);text-align:left;font-family:var(--mono)}
+th{font-family:var(--font);font-size:12px;color:var(--muted);background:var(--code-bg)}
+tr:last-child td{border-bottom:0}
+.spec{padding:12px 14px;border-radius:10px;border:1.5px solid var(--rule);background:var(--surface)}
+
+.choices{display:grid;gap:10px;margin-bottom:16px}
+.choice{display:flex;gap:12px;align-items:flex-start;width:100%;min-height:52px;padding:12px 14px;border-radius:12px;background:var(--surface);border:1.5px solid var(--rule)}
+.choice .mk{flex:none;width:24px;height:24px;margin-top:2px;border-radius:50%;border:2px solid var(--rule);display:grid;place-items:center;font-size:13px;font-weight:700}
+.choice.multi .mk{border-radius:6px}
+.choice .cx{flex:1;min-width:0;white-space:pre-line}
+.choice .cx.mono{font-family:var(--mono);font-size:13px;white-space:pre-wrap;line-height:1.55}
+.choice.on{border-color:var(--ink);background:var(--sel-bg);color:var(--sel-ink)}
+.choice.on .mk{border-color:currentColor;background:currentColor}
+.choice.on .mk::after{content:"✓";color:var(--sel-bg)}
+.choice.right{border-color:var(--ok);background:var(--ok-bg);color:var(--ink)}
+.choice.right .mk{border-color:var(--ok);background:var(--ok)}
+.choice.right .mk::after{content:"✓";color:var(--ok-bg)}
+.choice.wrong{border-color:var(--ng);background:var(--ng-bg);color:var(--ink)}
+.choice.wrong .mk{border-color:var(--ng);background:var(--ng)}
+.choice.wrong .mk::after{content:"×";color:var(--ng-bg)}
+.fu-q{font-weight:700;margin:4px 0 8px}
+
+.order-label{font-size:13px;font-weight:700;color:var(--muted);margin:4px 0 6px}
+.answer-area{min-height:64px;padding:8px;border-radius:12px;border:2px dashed var(--rule);background:var(--code-bg);margin-bottom:14px}
+.answer-area .empty{padding:12px 8px;font-size:14px;color:var(--muted)}
+.oline{display:block;width:100%;min-height:44px;padding:8px 10px;margin:4px 0;border-radius:8px;background:var(--surface);border:1.5px solid var(--rule);font-family:var(--mono);font-size:13.5px;line-height:1.5;white-space:pre-wrap;word-break:break-all}
+.oline.on{border-color:var(--ink);background:var(--sel-bg);color:var(--sel-ink)}
+.tools{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:2px 0 8px}
+.tools button{min-height:44px;border-radius:8px;border:1.5px solid var(--rule);background:var(--surface);text-align:center;font-weight:700;font-size:15px}
+.tools button:disabled{opacity:.3}
+.pool{display:grid;gap:2px;margin-bottom:16px}
+
+.fb{margin-top:6px;padding:14px 16px;border-radius:12px;font-size:20px;font-weight:700;display:flex;align-items:center;gap:10px}
+.fb.ok{background:var(--ok-bg);color:var(--ok)}
+.fb.ng{background:var(--ng-bg);color:var(--ng)}
+.fb small{font-size:14px;color:var(--ink);font-weight:400}
+.answer-box{margin-top:12px;padding:12px 14px;border-radius:12px;border:1.5px solid var(--ok);background:var(--surface)}
+.answer-box h3{font-size:14px;color:var(--ok);margin-bottom:4px}
+.answer-box pre{margin:6px 0 0;font-family:var(--mono);font-size:13px;white-space:pre-wrap;word-break:break-all}
+.run{margin-top:12px}
+.run .ghost{display:flex;align-items:center;justify-content:center;gap:8px}
+.console{margin:8px 0 0;padding:12px 14px;border-radius:10px;background:#0F151B;color:#D6E3D0;font-family:var(--mono);font-size:13.5px;white-space:pre-wrap;word-break:break-all}
+.console::before{content:"$ java Main\A";white-space:pre;color:#7E8B98}
+.explain{margin-top:16px}
+.explain h3,.lecture h3{font-size:15px;margin-bottom:4px}
+.lecture{margin-top:14px;padding:12px 14px;border-radius:12px;background:var(--surface);border-left:6px solid var(--c)}
+.boxmove{margin-top:14px;font-size:14px;color:var(--muted)}
+.footer-act{margin-top:20px}
+
+/* ---------- シート ---------- */
+.scrim{position:fixed;inset:0;z-index:40;background:rgba(10,14,20,.45);display:flex;align-items:flex-end;justify-content:center}
+.sheet{width:100%;max-width:560px;max-height:85vh;overflow:auto;background:var(--bg);border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))}
+.sheet h2{font-size:19px;line-height:1.4}
+.sheet .meta{font-size:14px;color:var(--muted);margin:4px 0 12px}
+.sheet dl{margin:0 0 16px}
+.sheet dt{font-size:13px;font-weight:700;color:var(--muted)}
+.sheet dd{margin:0 0 10px}
+.sheet .row{display:grid;gap:10px}
+.pick{display:block;width:100%;min-height:50px;padding:10px 14px;margin-bottom:8px;border-radius:10px;background:var(--surface);border:1.5px solid var(--rule);font-family:var(--mono);font-size:16px;font-weight:700}
+
+/* ---------- その他の画面 ---------- */
+.page-title{font-size:24px;margin:6px 0 14px}
+.card{padding:16px;border-radius:14px;background:var(--surface);border:1.5px solid var(--rule);margin-bottom:14px}
+.card h2{font-size:17px;margin-bottom:6px}
+.big{font-size:28px;font-weight:700;line-height:1.3}
+.muted{color:var(--muted);font-size:14px}
+.boxes{display:grid;gap:8px;margin:10px 0}
+.boxrow{display:grid;grid-template-columns:4.6em 1fr 2.4em;align-items:center;gap:10px;font-size:14px}
+.boxrow .track{height:14px;border-radius:7px;background:var(--code-bg);overflow:hidden}
+.boxrow .track i{display:block;height:100%;background:var(--silver)}
+.boxrow b{font-family:var(--mono);text-align:right}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:10px}
+.cal i{aspect-ratio:1;border-radius:5px;background:var(--code-bg)}
+.cal i.on{background:var(--practice)}
+.cal i.today{outline:2px solid var(--ink);outline-offset:-2px}
+.srow{padding:10px 0;border-bottom:1px solid var(--rule)}
+.srow:last-child{border-bottom:0}
+.srow .h{display:flex;justify-content:space-between;gap:8px;font-weight:700;font-size:15px}
+.srow .h em{font-style:normal;font-family:var(--mono);color:var(--c);margin-right:6px}
+.srow .g{font-size:13px;color:var(--muted)}
+.meter{height:8px;border-radius:4px;background:var(--code-bg);margin-top:6px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--c)}
+.reslist{list-style:none;padding:0;margin:10px 0 0}
+.reslist li{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--rule);font-size:15px}
+.reslist li:last-child{border-bottom:0}
+.reslist .r{flex:none;width:28px;font-weight:700;font-size:18px;text-align:center}
+.reslist .r.ok{color:var(--ok)}.reslist .r.ng{color:var(--ng)}
+.reslist small{display:block;color:var(--muted);font-size:13px}
+.news{padding:12px 14px;border-radius:12px;background:var(--sel-bg);color:var(--sel-ink);font-weight:700;margin-bottom:14px}
+.welcome{padding-top:8vh}
+.welcome h1{font-size:34px;line-height:1.25;margin-bottom:14px}
+.welcome p{margin-bottom:12px}
+.welcome .acts{display:grid;gap:10px;margin-top:26px}
+.mini-lines{display:flex;gap:6px;margin-bottom:22px}
+.mini-lines i{height:10px;border-radius:5px;flex:1}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;max-width:90vw;padding:10px 16px;border-radius:10px;background:var(--ink);color:var(--bg);font-size:14px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div id="app"><p class="loading">読み込み中…</p></div>
+<div id="overlay"></div>
+<script>
+'use strict';
+/* =========================================================
+   Javaライン  ― 通勤15分のJavaドリル
+   問題データは problems.json（同じフォルダ）から読み込みます。
+   ========================================================= */
+const KEY = { progress: 'javaApp.progress', stats: 'javaApp.stats', settings: 'javaApp.settings', session: 'javaApp.session' };
+const BOX_DAYS = { 1: 1, 2: 3, 3: 7, 4: 14, 5: 30 };
+const SESSION_SIZE = 6;
+
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* 保存できない環境でも動かす */ } },
+  del(k) { try { localStorage.removeItem(k); } catch (e) {} }
+};
+
+let DATA = null, PROG = {}, STATS = { days: [] }, CFG = {}, SES = null;
+let view = 'home';
+let Q = null;         // 表示中の問題の解答状態
+let sheet = null;     // 開いているシート
+let resetArmed = false;
+let timerHandle = null;
+
+/* ---------- 状態の読み書き ---------- */
+function loadState() {
+  PROG = store.get(KEY.progress, {}) || {};
+  STATS = store.get(KEY.stats, { days: [] }) || { days: [] };
+  if (!Array.isArray(STATS.days)) STATS.days = [];
+  CFG = Object.assign({ diagDone: false, diagCleared: [] }, store.get(KEY.settings, {}) || {});
+  if (!Array.isArray(CFG.diagCleared)) CFG.diagCleared = [];
+  SES = store.get(KEY.session, null);
+  if (SES && (!Array.isArray(SES.queue) || !Array.isArray(SES.results))) SES = null;
+}
+function save() {
+  store.set(KEY.progress, PROG);
+  store.set(KEY.stats, STATS);
+  store.set(KEY.settings, CFG);
+  if (SES) store.set(KEY.session, SES); else store.del(KEY.session);
+}
+
+/* ---------- 日付 ---------- */
+function dayKey(d = new Date()) {
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+function addDays(n) { const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() + n); return dayKey(d); }
+function fmtDay(k) { const p = k.split('-'); return (+p[1]) + '月' + (+p[2]) + '日'; }
+function relDay(k) {
+  const t = dayKey(); if (k <= t) return '今日';
+  if (k === addDays(1)) return '明日';
+  return fmtDay(k);
+}
+
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+function shuffle(a) { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; }
+
+/* ---------- データ参照 ---------- */
+const stages = () => DATA.curriculum.stages;
+const stageById = id => stages().find(s => s.id === id);
+const trackById = id => DATA.curriculum.tracks.find(t => t.id === id);
+const probsOf = id => DATA.problems.filter(p => p.stage === id);
+const probById = id => DATA.problems.find(p => p.id === id) || DATA.diagnostic.find(p => p.id === id);
+const colorOf = stageId => { const st = stageById(stageId); const tr = st && trackById(st.track); return tr ? tr.color : 'silver'; };
+
+function stageStat(id) {
+  const ps = probsOf(id); let ever = 0, att = 0, cor = 0, seen = 0;
+  ps.forEach(p => { const r = PROG[p.id]; if (r) { seen++; att += r.attempts || 0; cor += r.correct || 0; if (r.everCorrect) ever++; } });
+  return { total: ps.length, ever, seen, att, cor, rate: ps.length ? ever / ps.length : 0, acc: att ? cor / att : null };
+}
+function isCleared(id) {
+  if (CFG.diagCleared.includes(id)) return true;
+  const s = stageStat(id); return s.total > 0 && s.ever / s.total >= 0.7;
+}
+function isUnlocked(st) { return (st.unlock || []).every(isCleared); }
+function mainStage() {
+  for (const tid of ['silver', 'gold']) {
+    for (const st of stages().filter(s => s.track === tid)) if (!isCleared(st.id) && isUnlocked(st)) return st;
+  }
+  return stages()[0];
+}
+function position() {
+  const silver = stages().filter(s => s.track === 'silver'), gold = stages().filter(s => s.track === 'gold');
+  let hi = 0; for (const s of silver) { if (isCleared(s.id)) hi++; else break; }
+  let ghi = 0; for (const s of gold) { if (isCleared(s.id)) ghi++; else break; }
+  const labels = ['学び直しスタート', 'Bronze入門レベル', 'Bronze前半レベル', 'Bronze前半レベル', 'Bronze後半レベル', 'Bronze後半レベル', 'Bronze合格目安レベル', 'Silver挑戦レベル', 'Silver合格目安レベル'];
+  let label = labels[Math.min(hi, labels.length - 1)];
+  if (hi === silver.length && ghi > 0) label = ghi === gold.length ? 'Gold合格目安レベル' : 'Gold挑戦レベル';
+  let next;
+  if (hi < 6) next = 'Bronze受験の目安まであと' + (6 - hi) + '駅・Silverまであと' + (silver.length - hi) + '駅';
+  else if (hi < silver.length) next = 'Silver受験の目安まであと' + (silver.length - hi) + '駅';
+  else if (ghi < gold.length) next = 'Gold受験の目安まであと' + (gold.length - ghi) + '駅';
+  else next = '全路線の主要駅を通過しました';
+  return { label, next };
+}
+
+/* ---------- ライトナー方式 ---------- */
+function record(id, correct) {
+  const r = PROG[id] || { box: 0, attempts: 0, correct: 0, everCorrect: false };
+  const from = r.box || 0;
+  const to = from === 0 ? (correct ? 2 : 1) : (correct ? Math.min(5, from + 1) : 1);
+  if (correct && from === 5) r.mastered = true;
+  r.box = to; r.due = addDays(BOX_DAYS[to]); r.attempts = (r.attempts || 0) + 1;
+  if (correct) { r.correct = (r.correct || 0) + 1; r.everCorrect = true; }
+  r.last = dayKey(); PROG[id] = r;
+  markStudied();
+  return { from, to, due: r.due };
+}
+function markStudied() { const t = dayKey(); if (!STATS.days.includes(t)) { STATS.days.push(t); STATS.days = STATS.days.slice(-400); } }
+function streak() {
+  const set = new Set(STATS.days); const d = new Date(); d.setHours(12, 0, 0, 0);
+  if (!set.has(dayKey(d))) d.setDate(d.getDate() - 1);
+  let n = 0; while (set.has(dayKey(d))) { n++; d.setDate(d.getDate() - 1); }
+  return n;
+}
+function dueList() {
+  const t = dayKey();
+  return DATA.problems.filter(p => PROG[p.id] && PROG[p.id].due && PROG[p.id].due <= t)
+    .sort((a, b) => PROG[a.id].due.localeCompare(PROG[b.id].due) || PROG[a.id].box - PROG[b.id].box);
+}
+
+/* ---------- 今日の15分 ---------- */
+function planToday() {
+  const used = new Set();
+  const due = dueList().slice(0, 3).map(p => p.id); due.forEach(i => used.add(i));
+  const unseen = st => probsOf(st.id).filter(p => !PROG[p.id] && !used.has(p.id));
+  let practice = [];
+  for (const st of stages().filter(s => s.track === 'practice' && isUnlocked(s))) {
+    const u = unseen(st); if (u.length) { practice = [u[0].id]; break; }
+  }
+  practice.forEach(i => used.add(i));
+  const target = SESSION_SIZE - due.length - practice.length;
+  const main = [];
+  const order = [mainStage()].concat(stages().filter(s => s.track !== 'practice' && isUnlocked(s)));
+  for (const st of order) {
+    for (const p of unseen(st)) { if (main.length >= target) break; main.push(p.id); used.add(p.id); }
+    if (main.length >= target) break;
+  }
+  const q = due.concat(main, practice);
+  for (const p of dueList()) { if (q.length >= SESSION_SIZE) break; if (!used.has(p.id)) { q.push(p.id); used.add(p.id); } }
+  if (q.length < SESSION_SIZE) {
+    const pool = DATA.problems.filter(p => PROG[p.id] && !used.has(p.id) && isUnlocked(stageById(p.stage)))
+      .sort((a, b) => PROG[a.id].box - PROG[b.id].box || Math.random() - .5);
+    for (const p of pool) { if (q.length >= SESSION_SIZE) break; q.push(p.id); used.add(p.id); }
+  }
+  return { queue: q, reviews: due.length };
+}
+function planStage(id) {
+  const ps = probsOf(id);
+  const fresh = ps.filter(p => !PROG[p.id]);
+  const seen = ps.filter(p => PROG[p.id]).sort((a, b) => PROG[a.id].box - PROG[b.id].box || Math.random() - .5);
+  return fresh.concat(seen).slice(0, SESSION_SIZE).map(p => p.id);
+}
+
+/* ---------- セッション ---------- */
+function startSession(mode, queue, title, extra) {
+  if (!queue.length) { toast('解ける問題がまだありません'); return; }
+  SES = Object.assign({ mode, title, queue, idx: 0, results: [], clearedBefore: stages().filter(s => isCleared(s.id)).map(s => s.id) }, extra || {});
+  Q = null; sheet = null; save(); go('quiz');
+}
+function endSession() { SES = null; Q = null; save(); }
+
+/* ---------- 解答の判定 ---------- */
+function initAns(p) {
+  const it = p.interaction;
+  switch (it.mode) {
+    case 'single': return { choice: null };
+    case 'multi': return { set: [] };
+    case 'order': return { pool: shuffle(it.lines.map(l => l.id)), placed: [], sel: null };
+    case 'tapLine': return { line: null, choice: null };
+    case 'fillBlanks': return { vals: {} };
+  }
+  return {};
+}
+function isReady(p, a) {
+  const it = p.interaction;
+  switch (it.mode) {
+    case 'single': return a.choice !== null;
+    case 'multi': return a.set.length > 0;
+    case 'order': return a.placed.length > 0;
+    case 'tapLine': return a.line !== null && (!it.followUp || a.choice !== null);
+    case 'fillBlanks': return it.blanks.every((b, i) => a.vals[i] !== undefined);
+  }
+  return false;
+}
+function judge(p, a) {
+  const it = p.interaction;
+  switch (it.mode) {
+    case 'single': return a.choice === it.answer;
+    case 'multi': return a.set.slice().sort().join() === it.answer.slice().sort().join();
+    case 'order': {
+      const ids = a.placed.map(x => x.id).join();
+      if (![it.answer].concat(it.altAnswers || []).some(ans => ans.join() === ids)) return false;
+      if (!it.checkIndent) return true;
+      const byId = Object.fromEntries(it.lines.map(l => [l.id, l]));
+      return a.placed.every(x => x.indent === byId[x.id].indent);
+    }
+    case 'tapLine': return a.line === it.answerLine && (!it.followUp || a.choice === it.followUp.answer);
+    case 'fillBlanks': return it.blanks.every((b, i) => a.vals[i] === b.answer);
+  }
+  return false;
+}
+
+/* ---------- コード表示 ---------- */
+const KW = /\b(?:public|private|protected|static|final|abstract|void|class|interface|record|enum|extends|implements|new|return|if|else|for|while|do|switch|case|default|break|continue|try|catch|finally|throw|throws|import|package|this|super|null|true|false|var|int|double|boolean|char|long|float|short|byte|sealed|non-sealed|permits|yield|instanceof)\b/;
+const TOKEN = /(\/\/.*$)|("(?:[^"\\]|\\.)*")|('(?:[^'\\]|\\.)*')|(@[A-Za-z]\w*)|(\b\d+(?:\.\d+)?[dDfFL]?\b)|(\b[A-Za-z_]\w*\b)/g;
+function hl(text) {
+  let out = '', last = 0, m;
+  TOKEN.lastIndex = 0;
+  while ((m = TOKEN.exec(text))) {
+    out += esc(text.slice(last, m.index));
+    const t = m[0];
+    if (m[1]) out += '<span class="hc">' + esc(t) + '</span>';
+    else if (m[2] || m[3]) out += '<span class="hs">' + esc(t) + '</span>';
+    else if (m[4]) out += '<span class="ha">' + esc(t) + '</span>';
+    else if (m[5]) out += '<span class="hn">' + esc(t) + '</span>';
+    else if (KW.test(t) && KW.exec(t)[0] === t) out += '<span class="hk">' + esc(t) + '</span>';
+    else out += esc(t);
+    last = m.index + t.length;
+  }
+  return out + esc(text.slice(last));
+}
+function withBlanks(p, text, highlight) {
+  return String(text).split(/(\{\{\d+\}\})/).map(part => {
+    const m = part.match(/^\{\{(\d+)\}\}$/);
+    if (!m) return highlight ? hl(part) : esc(part);
+    return blankBtn(p, +m[1]);
+  }).join('');
+}
+function blankBtn(p, n) {
+  const b = p.interaction.blanks && p.interaction.blanks[n];
+  if (!b) return '';
+  const v = Q.ans.vals[n];
+  let cls = 'blank' + (v !== undefined ? ' filled' : '');
+  if (Q.checked) cls += v === b.answer ? ' right' : ' wrong';
+  const label = v !== undefined ? esc(b.choices[v]) : '？';
+  return '<button class="' + cls + '" data-act="blank" data-n="' + n + '"' + (Q.checked ? ' disabled' : '') + ' aria-label="空欄' + (n + 1) + '">' + label + '</button>';
+}
+function renderMaterial(p, m, mi) {
+  const it = p.interaction;
+  if (m.kind === 'table') {
+    const head = '<tr>' + m.columns.map(c => '<th>' + esc(c) + '</th>').join('') + '</tr>';
+    const body = m.rows.map(r => '<tr>' + r.map(c => '<td>' + withBlanks(p, c, false) + '</td>').join('') + '</tr>').join('');
+    return '<div class="mat"><div class="tbl-wrap"><table>' + head + body + '</table></div></div>';
+  }
+  if (m.kind === 'spec') return '<div class="mat"><div class="spec">' + withBlanks(p, m.content, false) + '</div></div>';
+  const isLog = m.kind === 'log';
+  const tappable = it.mode === 'tapLine' && it.target === mi;
+  const lines = String(m.content).split('\n');
+  const rows = lines.map((ln, i) => {
+    const n = i + 1;
+    const tx = isLog ? esc(ln) : withBlanks(p, ln, true);
+    if (tappable) {
+      let cls = 'ln';
+      if (Q.checked) { if (n === it.answerLine) cls += ' right'; else if (n === Q.ans.line) cls += ' wrong'; }
+      else if (Q.ans.line === n) cls += ' picked';
+      return '<button class="' + cls + '" data-act="line" data-n="' + n + '"' + (Q.checked ? ' disabled' : '') + '><span class="no">' + n + '</span><span class="tx">' + (tx || ' ') + '</span></button>';
+    }
+    return '<div class="ln"><span class="no">' + n + '</span><span class="tx">' + (tx || ' ') + '</span></div>';
+  }).join('');
+  const label = isLog ? '<div class="mat-label">エラーログ・実行結果</div>' : '';
+  const note = tappable && !Q.checked ? '<p class="tapnote">行をタップして選んでください</p>' : '';
+  return '<div class="mat">' + label + '<div class="code' + (isLog ? ' log' : '') + '">' + rows + '</div>' + note + '</div>';
+}
+
+/* ---------- 解答エリア ---------- */
+function choiceList(choices, opts) {
+  return '<div class="choices">' + choices.map((c, i) => {
+    let cls = 'choice' + (opts.multi ? ' multi' : '');
+    const on = opts.isOn(i);
+    if (opts.checked) { if (opts.isRight(i)) cls += ' right'; else if (on) cls += ' wrong'; }
+    else if (on) cls += ' on';
+    return '<button class="' + cls + '" data-act="' + opts.act + '" data-i="' + i + '"' + (opts.checked ? ' disabled' : '') + ' aria-pressed="' + on + '">' +
+      '<span class="mk"></span><span class="cx' + (opts.mono ? ' mono' : '') + '">' + esc(c) + '</span></button>';
+  }).join('') + '</div>';
+}
+function renderInteraction(p) {
+  const it = p.interaction, a = Q.ans, ck = Q.checked;
+  switch (it.mode) {
+    case 'single':
+      return choiceList(it.choices, { act: 'choice', mono: it.codeChoices, checked: ck, isOn: i => a.choice === i, isRight: i => i === it.answer });
+    case 'multi':
+      return (ck ? '' : '<p class="tapnote" style="margin:-4px 0 8px">当てはまるものを全てタップしてください</p>') +
+        choiceList(it.choices, { act: 'toggle', multi: true, mono: it.codeChoices, checked: ck, isOn: i => a.set.includes(i), isRight: i => it.answer.includes(i) });
+    case 'tapLine':
+      if (!it.followUp || a.line === null) return '';
+      return '<p class="fu-q">' + esc(it.followUp.prompt || '理由は？') + '</p>' +
+        choiceList(it.followUp.choices, { act: 'fchoice', checked: ck, isOn: i => a.choice === i, isRight: i => i === it.followUp.answer });
+    case 'fillBlanks':
+      return ck ? '' : '<p class="tapnote" style="margin:-4px 0 14px">空欄をタップして選んでください</p>';
+    case 'order': {
+      const byId = Object.fromEntries(it.lines.map(l => [l.id, l]));
+      const indentOf = x => it.checkIndent ? x.indent : byId[x.id].indent;
+      const placed = a.placed.map((x, i) => {
+        const on = a.sel === i && !ck;
+        let html = '<button class="oline' + (on ? ' on' : '') + '" data-act="placed" data-i="' + i + '"' + (ck ? ' disabled' : '') +
+          ' style="padding-left:' + (10 + indentOf(x) * 22) + 'px">' + hl(byId[x.id].code) + '</button>';
+        if (on) {
+          html += '<div class="tools">' +
+            '<button data-act="mv" data-d="up" aria-label="上へ"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
+            '<button data-act="mv" data-d="down" aria-label="下へ"' + (i === a.placed.length - 1 ? ' disabled' : '') + '>↓</button>' +
+            '<button data-act="mv" data-d="left" aria-label="字下げを減らす"' + (!it.checkIndent || x.indent === 0 ? ' disabled' : '') + '>←</button>' +
+            '<button data-act="mv" data-d="right" aria-label="字下げを増やす"' + (!it.checkIndent || x.indent >= 3 ? ' disabled' : '') + '>→</button>' +
+            '<button data-act="mv" data-d="back" aria-label="下に戻す">戻す</button></div>';
+        }
+        return html;
+      }).join('');
+      const pool = a.pool.filter(id => !a.placed.some(x => x.id === id)).map(id =>
+        '<button class="oline" data-act="pool" data-id="' + id + '"' + (ck ? ' disabled' : '') + '>' + hl(byId[id].code) + '</button>').join('');
+      return '<p class="order-label">解答欄（タップで選ぶと移動・字下げ・戻すができます）</p>' +
+        '<div class="answer-area">' + (placed || '<p class="empty">下の行をタップすると、ここに順番に入ります</p>') + '</div>' +
+        (ck ? '' : '<p class="order-label">使う行をタップ</p><div class="pool">' + (pool || '<p class="muted">全ての行を使いました</p>') + '</div>');
+    }
+  }
+  return '';
+}
+
+/* ---------- 正解の表示 ---------- */
+function correctAnswerHTML(p) {
+  const it = p.interaction;
+  switch (it.mode) {
+    case 'single': case 'multi': return ''; // 選択肢に色で表示
+    case 'tapLine': return '';
+    case 'fillBlanks':
+      return '<div class="answer-box"><h3>正解</h3>' + it.blanks.map((b, i) => '<div>空欄' + (i + 1) + '：<b>' + esc(b.choices[b.answer]) + '</b></div>').join('') + '</div>';
+    case 'order': {
+      const byId = Object.fromEntries(it.lines.map(l => [l.id, l]));
+      const txt = it.answer.map(id => '    '.repeat(byId[id].indent) + byId[id].code).join('\n');
+      return '<div class="answer-box"><h3>正しい順番</h3><pre>' + hl(txt) + '</pre></div>';
+    }
+  }
+  return '';
+}
+
+/* ---------- 画面: 問題 ---------- */
+function curProblem() { return probById(SES.queue[SES.idx]); }
+function renderQuiz() {
+  if (SES.idx >= SES.queue.length) { go('end'); return ''; }
+  const p = curProblem();
+  if (!p) { SES.idx++; save(); return renderQuiz(); }
+  if (!Q || Q.id !== p.id) Q = { id: p.id, ans: initAns(p), checked: false, correct: null, run: false, mv: null };
+  const st = stageById(p.stage);
+  const color = colorOf(p.stage);
+  const total = SES.queue.length;
+  const timer = SES.mode === 'mock' ? '<span class="timer" id="timer">' + fmtLeft() + '</span>' : '';
+  let h = '<header class="qhead"><button class="x" data-act="quit" aria-label="中断してホームへ">×</button>' +
+    '<div class="bar" role="progressbar" aria-valuenow="' + SES.idx + '" aria-valuemax="' + total + '"><i style="width:' + (SES.idx / total * 100) + '%"></i></div>' +
+    timer + '<span class="count">' + (SES.idx + 1) + '/' + total + '</span></header>';
+  h += '<div class="sign" style="--c:var(--' + color + ')"><span class="sid">' + esc(p.stage) + '</span><span class="name">' + esc(st ? st.title : '') + '</span></div>';
+  h += '<h1 class="qtitle">' + esc(p.title) + '</h1><p class="qtext">' + esc(p.question) + '</p>';
+  (p.materials || []).forEach((m, i) => { h += renderMaterial(p, m, i); });
+  h += renderInteraction(p);
+  if (!Q.checked) {
+    h += '<div class="footer-act"><button class="primary" data-act="check"' + (isReady(p, Q.ans) ? '' : ' disabled') + '>答え合わせ</button></div>';
+  } else {
+    h += renderFeedback(p, color);
+  }
+  return h;
+}
+function renderFeedback(p, color) {
+  const ok = Q.correct, last = SES.idx >= SES.queue.length - 1;
+  let h = '<div id="fb" class="fb ' + (ok ? 'ok' : 'ng') + '">' + (ok ? '○ 正解' : '× 不正解') + '</div>';
+  if (SES.mode === 'mock') {
+    return h + '<div class="footer-act"><button class="primary" data-act="next">' + (last ? '結果を見る' : '次の問題へ') + '</button></div>';
+  }
+  if (!ok) h += correctAnswerHTML(p);
+  if (p.output) {
+    h += '<div class="run">' + (Q.run
+      ? '<div class="mat-label">' + esc(p.outputLabel || '実行結果') + '</div><pre class="console">' + esc(p.output) + '</pre>'
+      : '<button class="ghost" data-act="run">▶ ' + esc(p.outputLabel ? '修正後のコードを実行する' : '実行する') + '</button>') + '</div>';
+  }
+  if (p.explanation) h += '<section class="explain"><h3>解説</h3><p>' + esc(p.explanation) + '</p></section>';
+  if (p.miniLecture) h += '<section class="lecture" style="--c:var(--' + color + ')"><h3>ミニ講義</h3><p>' + esc(p.miniLecture) + '</p></section>';
+  if (Q.mv) h += '<p class="boxmove">次の復習：' + relDay(Q.mv.due) + '（' + (ok ? '覚えている度が上がりました' : '近いうちにもう一度出します') + '）</p>';
+  return h + '<div class="footer-act"><button class="primary" data-act="next">' + (last ? '結果を見る' : '次の問題へ') + '</button></div>';
+}
+function fmtLeft() {
+  const ms = Math.max(0, (SES.deadline || 0) - Date.now());
+  const s = Math.ceil(ms / 1000);
+  return 'のこり' + Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+}
+
+/* ---------- 画面: セッション結果 ---------- */
+function renderEnd() {
+  if (!SES) { go('home'); return ''; }
+  if (SES.mode === 'diag') return renderDiagResult();
+  const res = SES.results, okN = res.filter(r => r.ok).length, total = SES.queue.length;
+  let h = '<h1 class="page-title">' + esc(SES.title) + 'の結果</h1>';
+  const newly = stages().filter(s => isCleared(s.id) && !SES.clearedBefore.includes(s.id));
+  newly.forEach(s => {
+    const opened = stages().filter(t => !isCleared(t.id) && isUnlocked(t) && (t.unlock || []).includes(s.id) && probsOf(t.id).length);
+    h += '<div class="news">' + esc(s.id + ' ' + s.title) + 'の駅を通過しました' +
+      (opened.length ? '。' + opened.map(t => esc(t.id + ' ' + t.title)).join('・') + 'が開通しました' : '') + '</div>';
+  });
+  h += '<div class="card"><p class="big">' + okN + ' / ' + total + '問 正解</p>';
+  if (SES.mode === 'mock') {
+    const rate = total ? okN / total : 0;
+    h += '<p>' + (rate >= .65 ? '合格ライン（65%）を超えています。' : '合格ライン（65%）まであと' + Math.max(1, Math.ceil(total * .65) - okN) + '問です。') + '</p>';
+    const topics = {};
+    SES.queue.forEach(id => { const p = probById(id); const t = p.examTopic || 'その他'; topics[t] = topics[t] || { n: 0, ok: 0 }; topics[t].n++; });
+    res.forEach(r => { const t = probById(r.id).examTopic || 'その他'; if (r.ok) topics[t].ok++; });
+    h += '<div style="margin-top:10px">' + Object.entries(topics).map(([t, v]) =>
+      '<div class="srow"><div class="h"><span>' + esc(t) + '</span><span>' + v.ok + '/' + v.n + '</span></div></div>').join('') + '</div>';
+  }
+  h += '</div><div class="card"><h2>解いた問題</h2><ul class="reslist">' + res.map(r => {
+    const p = probById(r.id);
+    const note = r.mv ? '次の復習：' + relDay(r.mv.due) : '';
+    return '<li><span class="r ' + (r.ok ? 'ok' : 'ng') + '">' + (r.ok ? '○' : '×') + '</span><span>' + esc(p.stage + ' ' + p.title) + '<small>' + note + '</small></span></li>';
+  }).join('') + '</ul></div>';
+  h += '<button class="primary" data-act="finish">ホームに戻る</button>';
+  return h;
+}
+
+/* ---------- 実力診断 ---------- */
+function renderWelcome() {
+  return '<div class="welcome"><div class="mini-lines"><i style="background:var(--silver)"></i><i style="background:var(--practice)"></i><i style="background:var(--gold)"></i></div>' +
+    '<h1>Javaライン</h1>' +
+    '<p>Silver線・実務線・Gold線の3つの路線を、1日15分ずつ進むJavaのドリルです。キーボードは使わず、タップだけで解けます。</p>' +
+    '<p>最初に10問で今の実力を確かめて、乗り始める駅を決めましょう。分からない問題は、勘で選んで大丈夫です。</p>' +
+    '<div class="acts"><button class="primary" data-act="diag">実力診断を始める（約5分）</button>' +
+    '<button class="ghost" data-act="skipdiag">診断せずにS1から始める</button></div></div>';
+}
+function startDiag() { startSession('diag', DATA.diagnostic.map(d => d.id), '実力診断'); }
+function finishDiag() {
+  const silver = stages().filter(s => s.track === 'silver').map(s => s.id);
+  const diagStages = silver.filter(id => DATA.diagnostic.some(d => d.stage === id));
+  let firstWrong = -1;
+  for (let i = 0; i < diagStages.length; i++) {
+    const ids = DATA.diagnostic.filter(d => d.stage === diagStages[i]).map(d => d.id);
+    if (ids.some(id => !(SES.results.find(r => r.id === id) || {}).ok)) { firstWrong = i; break; }
+  }
+  const startIdx = firstWrong === -1 ? diagStages.length - 1 : Math.max(0, firstWrong - 1);
+  const startId = diagStages[startIdx];
+  const cleared = silver.slice(0, silver.indexOf(startId));
+  CFG.diagCleared = cleared; CFG.diagDone = true; CFG.startStage = startId;
+  // 診断で通過した駅の問題は「箱3」に入れ、7日後に忘れていないか確認する
+  cleared.forEach(sid => probsOf(sid).forEach(p => { if (!PROG[p.id]) PROG[p.id] = { box: 3, due: addDays(7), attempts: 0, correct: 0, everCorrect: false, fromDiag: true }; }));
+  markStudied();
+  return { startId, okN: SES.results.filter(r => r.ok).length };
+}
+function renderDiagResult() {
+  if (!SES.diagSummary) { SES.diagSummary = finishDiag(); save(); }
+  const s = SES.diagSummary, st = stageById(s.startId), pos = position();
+  let h = '<h1 class="page-title">診断の結果</h1><div class="card"><p class="muted">10問中' + s.okN + '問 正解</p>' +
+    '<p class="big">' + esc(pos.label) + '</p><p>' + esc(st.id + ' ' + st.title) + 'から乗り始めましょう。</p></div>';
+  if (CFG.diagCleared.length) {
+    h += '<div class="card"><h2>通過した駅</h2><p>' + CFG.diagCleared.map(id => esc(id + ' ' + stageById(id).title)).join('・') +
+      'は、ほぼ理解できています。これらの問題は1週間後の復習で、忘れていないかを確かめます。</p></div>';
+  }
+  h += '<div class="card"><h2>この先の目安</h2><p>' + esc(pos.next) + '。実務線（エラーログの読み方など）は、S2を通過すると開通します。</p></div>';
+  return h + '<button class="primary" data-act="finish">はじめる</button>';
+}
+
+/* ---------- 画面: ホーム ---------- */
+function stationMeta(st) {
+  const s = stageStat(st.id);
+  if (!isUnlocked(st) && !isCleared(st.id)) return (st.unlock || []).join('・') + 'の通過で開通';
+  if (s.total === 0) return isCleared(st.id) ? '通過済み' : '問題は準備中です';
+  if (CFG.diagCleared.includes(st.id) && s.ever / s.total < .7) return '診断で通過・' + st.goal;
+  if (isCleared(st.id)) return '通過済み・' + s.ever + '/' + s.total + '問';
+  return s.ever + '/' + s.total + '問 正解・' + st.goal;
+}
+function renderHome() {
+  const pos = position(), ms = mainStage();
+  let h = '<div class="top"><div><p class="app">Javaライン</p><p class="pos">' + esc(pos.label) + '</p><p class="next">' + esc(pos.next) + '</p></div>' +
+    '<div class="streak"><b>' + streak() + '</b><span>日連続</span></div></div>';
+  const resumable = SES && SES.mode !== 'diag' && SES.idx < SES.queue.length;
+  if (resumable) {
+    h += '<button class="today" style="--c:var(--' + colorOf(ms.id) + ')" data-act="resume"><span class="t">続きから</span><span class="s">' + esc(SES.title) + '・' + (Math.max(SES.idx, SES.results.length) + 1) + '問目から</span></button>' +
+      '<div class="subrow"><button class="textbtn" data-act="discard">中断した分を終わりにする</button></div>';
+  } else {
+    const plan = planToday();
+    const sub = plan.queue.length ? '復習' + plan.reviews + '問・新しい問題' + (plan.queue.length - plan.reviews) + '問（約' + plan.queue.length * 2 + '分）' : '今日解ける問題はありません';
+    h += '<button class="today" style="--c:var(--' + colorOf(ms.id) + ')" data-act="today"><span class="t">今日の15分</span><span class="s">' + sub + '</span></button>';
+  }
+  const order = ['silver', 'practice', 'gold'];
+  order.forEach(tid => {
+    const tr = trackById(tid); if (!tr) return;
+    const list = stages().filter(s => s.track === tid);
+    h += '<section class="line" style="--c:var(--' + tr.color + ')"><h2><span class="badge">' + esc(tr.badge) + '</span>' + esc(tr.name) + '<small>' + esc(tr.desc) + '</small></h2><ol class="stations">';
+    list.forEach(st => {
+      const cleared = isCleared(st.id), unlocked = isUnlocked(st), current = st.id === ms.id && !cleared;
+      const cls = cleared ? 'cleared' : (current ? 'current' : (unlocked ? 'open' : 'locked'));
+      h += '<li class="' + cls + '"><button class="st" data-act="stage" data-id="' + st.id + '"><span class="dot"><i></i></span><span class="st-body"><span class="st-name"><em>' + st.id + '</em>' + esc(st.title) + '</span><span class="st-meta">' + esc(stationMeta(st)) + '</span></span>' +
+        (current ? '<span class="here">現在地</span>' : '') + '</button></li>';
+      if (st.milestone) h += '<li class="milestone ' + (cleared ? 'cleared' : 'locked') + '"><span>' + esc(st.milestone) + '</span></li>';
+    });
+    h += '</ol></section>';
+  });
+  return h;
+}
+
+/* ---------- 画面: 復習 ---------- */
+function renderReview() {
+  const due = dueList(), counts = [0, 0, 0, 0, 0, 0];
+  DATA.problems.forEach(p => { const r = PROG[p.id]; if (r && r.box) counts[r.box]++; });
+  const max = Math.max(1, ...counts);
+  const labels = { 1: '翌日', 2: '3日後', 3: '7日後', 4: '14日後', 5: '30日後' };
+  let h = '<h1 class="page-title">復習</h1><div class="card"><p class="muted">今日復習する問題</p><p class="big">' + due.length + '問</p>' +
+    (due.length ? '<div style="margin-top:12px"><button class="primary" data-act="dueall">復習する問題を解く</button></div>' : '<p>今日の復習は終わっています。</p>') + '</div>';
+  h += '<div class="card"><h2>覚えている度</h2><p class="muted">正解すると右の箱へ進み、次に出るまでの間隔が延びます。間違えると箱1に戻ります。</p><div class="boxes">' +
+    [1, 2, 3, 4, 5].map(b => '<div class="boxrow"><span>箱' + b + '<br><small class="muted">' + labels[b] + '</small></span><span class="track"><i style="width:' + (counts[b] / max * 100) + '%"></i></span><b>' + counts[b] + '</b></div>').join('') +
+    '</div>' + (counts[1] ? '<button class="ghost" data-act="weak">苦手な問題（箱1）を解く</button>' : '') + '</div>';
+  return h;
+}
+
+/* ---------- 画面: 進捗 ---------- */
+function renderProgress() {
+  const pos = position();
+  let h = '<h1 class="page-title">進捗</h1><div class="card"><p class="muted">現在地</p><p class="big">' + esc(pos.label) + '</p><p>' + esc(pos.next) + '</p></div>';
+  const set = new Set(STATS.days); const cells = [];
+  const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() - 27);
+  for (let i = 0; i < 28; i++) { const k = dayKey(d); cells.push('<i class="' + (set.has(k) ? 'on' : '') + (k === dayKey() ? ' today' : '') + '" title="' + fmtDay(k) + '"></i>'); d.setDate(d.getDate() + 1); }
+  h += '<div class="card"><h2>' + streak() + '日連続で学習中</h2><p class="muted">直近4週間（枠付きが今日）</p><div class="cal">' + cells.join('') + '</div></div>';
+  ['silver', 'practice', 'gold'].forEach(tid => {
+    const tr = trackById(tid);
+    h += '<div class="card" style="--c:var(--' + tr.color + ')"><h2>' + esc(tr.name) + 'の到達目標</h2>' + stages().filter(s => s.track === tid).map(st => {
+      const s = stageStat(st.id), cl = isCleared(st.id);
+      const acc = s.acc === null ? '' : '正答率' + Math.round(s.acc * 100) + '%';
+      return '<div class="srow"><div class="h"><span><em>' + st.id + '</em>' + (cl ? '✓ ' : '') + esc(st.goal) + '</span></div>' +
+        '<div class="g">' + esc(st.title) + (s.total ? '・' + s.ever + '/' + s.total + '問 ' + acc : '・準備中') + '</div>' +
+        (s.total ? '<div class="meter"><i style="width:' + Math.round(s.rate * 100) + '%"></i></div>' : '') + '</div>';
+    }).join('') + '</div>';
+  });
+  h += '<div class="card"><h2>模試</h2>' + DATA.curriculum.mocks.map(m => {
+    const open = isCleared(m.after);
+    return '<div class="srow"><div class="h"><span>' + esc(m.name) + '（' + m.count + '問・' + m.minutes + '分）</span></div>' +
+      (open ? '<div style="margin-top:8px"><button class="ghost" data-act="mock" data-id="' + m.id + '">' + esc(m.name) + 'を始める</button></div>'
+        : '<div class="g">' + esc(m.after) + 'の通過で受けられます。本番と同じく65%が合格ラインです。</div>') + '</div>';
+  }).join('') + '</div>';
+  h += '<div class="card"><h2>設定</h2><div class="row" style="display:grid;gap:10px;margin-top:8px">' +
+    '<button class="ghost" data-act="rediag">実力診断をやり直す</button>' +
+    '<button class="ghost" data-act="reset" style="' + (resetArmed ? 'border-color:var(--ng);color:var(--ng)' : '') + '">' + (resetArmed ? 'もう一度押すと全データを消去します' : '学習データを全て消去する') + '</button></div></div>';
+  return h;
+}
+
+/* ---------- シート ---------- */
+function renderSheet() {
+  if (!sheet) return '';
+  let inner = '';
+  if (sheet.type === 'blank') {
+    const p = curProblem(), b = p.interaction.blanks[sheet.n];
+    inner = '<h2>空欄' + (sheet.n + 1) + 'に入るもの</h2><p class="meta">タップして選んでください</p>' +
+      b.choices.map((c, i) => '<button class="pick" data-act="pick" data-i="' + i + '">' + esc(c) + '</button>').join('');
+  } else if (sheet.type === 'stage') {
+    const st = stageById(sheet.id), s = stageStat(st.id), tr = trackById(st.track);
+    const unlocked = isUnlocked(st) || isCleared(st.id);
+    inner = '<div class="sign" style="--c:var(--' + tr.color + ')"><span class="sid">' + st.id + '</span><span class="name">' + esc(tr.name) + '</span></div>' +
+      '<h2>' + esc(st.title) + '</h2><p class="meta">' + (s.total ? s.ever + '/' + s.total + '問 正解' : '問題は準備中です') + '</p>' +
+      '<dl><dt>この駅で学ぶこと</dt><dd>' + esc(st.topics) + '</dd><dt>到達目標</dt><dd>' + esc(st.goal) + 'ようになる</dd>' +
+      (!unlocked ? '<dt>開通の条件</dt><dd>' + esc((st.unlock || []).join('・')) + 'を通過すると開通します。</dd>' : '') + '</dl>' +
+      '<div class="row">' + (s.total
+        ? '<button class="primary" data-act="practice" data-id="' + st.id + '">' + (unlocked ? 'この駅の問題を解く' : 'のぞき見で解いてみる') + '</button>'
+        : '') + '<button class="ghost" data-act="close">閉じる</button></div>';
+  }
+  return '<div class="scrim" data-act="scrim"><div class="sheet" role="dialog" aria-modal="true">' + inner + '</div></div>';
+}
+
+/* ---------- 描画 ---------- */
+function go(v) { view = v; window.scrollTo(0, 0); render(); }
+function render() {
+  const app = document.getElementById('app');
+  if (!CFG.diagDone && !(SES && SES.mode === 'diag') && view !== 'end') view = 'welcome';
+  let h = '';
+  if (view === 'welcome') h = renderWelcome();
+  else if (view === 'quiz' && SES) h = renderQuiz();
+  else if (view === 'end') h = renderEnd();
+  else if (view === 'review') h = renderReview();
+  else if (view === 'progress') h = renderProgress();
+  else { view = 'home'; h = renderHome(); }
+  if (view !== 'quiz' && view !== 'end' && view !== 'welcome') {
+    h += '<nav class="nav" aria-label="メニュー"><div>' +
+      [['home', 'ホーム'], ['review', '復習'], ['progress', '進捗']].map(([v, l]) => '<button data-act="nav" data-v="' + v + '"' + (view === v ? ' aria-current="page"' : '') + '>' + l + '</button>').join('') + '</div></nav>';
+  }
+  if (h) app.innerHTML = h;
+  document.getElementById('overlay').innerHTML = renderSheet();
+  manageTimer();
+}
+function manageTimer() {
+  clearInterval(timerHandle); timerHandle = null;
+  if (view === 'quiz' && SES && SES.mode === 'mock') {
+    timerHandle = setInterval(() => {
+      if (!SES || SES.mode !== 'mock') return;
+      if (Date.now() >= SES.deadline) { clearInterval(timerHandle); toast('時間になりました'); go('end'); return; }
+      const el = document.getElementById('timer'); if (el) el.textContent = fmtLeft();
+    }, 1000);
+  }
+}
+function toast(msg) {
+  const t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status'); t.textContent = msg;
+  document.body.appendChild(t); setTimeout(() => t.remove(), 2200);
+}
+
+/* ---------- 操作 ---------- */
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if (!b || b.disabled) return;
+  const act = b.dataset.act;
+  if (act === 'scrim' && e.target !== b) return;   // シートの中身のタップでは閉じない
+  handle(act, b.dataset);
+});
+function handle(act, ds) {
+  const p = view === 'quiz' && SES ? curProblem() : null;
+  switch (act) {
+    case 'nav': resetArmed = false; go(ds.v); return;
+    case 'diag': startDiag(); return;
+    case 'skipdiag': CFG.diagDone = true; CFG.diagCleared = []; CFG.startStage = 'S1'; save(); go('home'); return;
+    case 'today': { const plan = planToday(); startSession('today', plan.queue, '今日の15分'); return; }
+    case 'resume': SES.idx = SES.results.length; Q = null; save(); go('quiz'); return;   // 再開時は次の未回答から
+    case 'discard': endSession(); render(); return;
+    case 'stage': sheet = { type: 'stage', id: ds.id }; render(); return;
+    case 'practice': { const st = stageById(ds.id); sheet = null; startSession('stage', planStage(ds.id), st.id + ' ' + st.title); return; }
+    case 'close': case 'scrim': sheet = null; render(); return;
+    case 'dueall': startSession('review', dueList().slice(0, 10).map(x => x.id), '復習'); return;
+    case 'weak': startSession('review', shuffle(DATA.problems.filter(x => PROG[x.id] && PROG[x.id].box === 1)).slice(0, SESSION_SIZE).map(x => x.id), '苦手な問題'); return;
+    case 'mock': {
+      const m = DATA.curriculum.mocks.find(x => x.id === ds.id);
+      const ids = shuffle(DATA.problems.filter(x => (stageById(x.stage) || {}).track === m.track).map(x => x.id)).slice(0, m.count);
+      startSession('mock', ids, m.name, { deadline: Date.now() + m.minutes * 60000 }); return;
+    }
+    case 'rediag': CFG.diagDone = false; CFG.diagCleared = []; endSession(); go('welcome'); return;
+    case 'reset':
+      if (!resetArmed) { resetArmed = true; render(); return; }
+      PROG = {}; STATS = { days: [] }; CFG = { diagDone: false, diagCleared: [] }; SES = null; resetArmed = false; save(); go('welcome'); return;
+    case 'quit': Q = null; sheet = null; go(CFG.diagDone ? 'home' : 'welcome'); return;
+    case 'finish': endSession(); go('home'); return;
+  }
+  if (!p) return;
+  const a = Q.ans, it = p.interaction;
+  switch (act) {
+    case 'choice': a.choice = +ds.i; break;
+    case 'fchoice': a.choice = +ds.i; break;
+    case 'toggle': { const i = +ds.i; a.set = a.set.includes(i) ? a.set.filter(x => x !== i) : a.set.concat(i); break; }
+    case 'line': a.line = +ds.n; break;
+    case 'blank': sheet = { type: 'blank', n: +ds.n }; break;
+    case 'pick': a.vals[sheet.n] = +ds.i; {
+        const next = it.blanks.findIndex((bb, i) => a.vals[i] === undefined);
+        sheet = null;
+        render();
+        if (next >= 0) { const el = document.querySelector('[data-act="blank"][data-n="' + next + '"]'); if (el) el.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+        return;
+      }
+    case 'pool': a.placed.push({ id: ds.id, indent: 0 }); a.sel = null; break;
+    case 'placed': a.sel = a.sel === +ds.i ? null : +ds.i; break;
+    case 'mv': {
+      const i = a.sel; if (i === null) return; const x = a.placed[i];
+      if (ds.d === 'up' && i > 0) { a.placed.splice(i, 1); a.placed.splice(i - 1, 0, x); a.sel = i - 1; }
+      else if (ds.d === 'down' && i < a.placed.length - 1) { a.placed.splice(i, 1); a.placed.splice(i + 1, 0, x); a.sel = i + 1; }
+      else if (ds.d === 'left') x.indent = Math.max(0, x.indent - 1);
+      else if (ds.d === 'right') x.indent = Math.min(3, x.indent + 1);
+      else if (ds.d === 'back') { a.placed.splice(i, 1); a.sel = null; }
+      break;
+    }
+    case 'check': {
+      if (!isReady(p, a)) return;
+      Q.checked = true; Q.correct = judge(p, a); a.sel = null;
+      Q.mv = SES.mode === 'diag' ? null : record(p.id, Q.correct);
+      SES.results.push({ id: p.id, ok: Q.correct, mv: Q.mv });
+      save(); render();
+      const fb = document.getElementById('fb'); if (fb) fb.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      return;
+    }
+    case 'run': Q.run = true; break;
+    case 'next': SES.idx = SES.results.length; Q = null; save(); go(SES.idx >= SES.queue.length ? 'end' : 'quiz'); return;
+    default: return;
+  }
+  render();
+}
+
+/* ---------- 起動 ---------- */
+async function loadData() {
+  try {
+    const r = await fetch('problems.json', { cache: 'no-cache' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return await r.json();
+  } catch (e) {
+    if (window.EMBEDDED_PROBLEMS) return window.EMBEDDED_PROBLEMS;
+    throw e;
+  }
+}
+(async function init() {
+  loadState();
+  try { DATA = await loadData(); }
+  catch (e) {
+    document.getElementById('app').innerHTML = '<div class="card" style="margin-top:20vh"><h2>問題データを読み込めませんでした</h2><p>problems.jsonがindex.htmlと同じフォルダにあるか確認してから、ページを再読み込みしてください。</p></div>';
+    return;
+  }
+  if (SES) { SES.idx = Math.max(SES.idx, SES.results.length); save(); }
+  if (SES && SES.mode === 'diag') view = 'quiz';
+  else view = CFG.diagDone ? 'home' : 'welcome';
+  render();
+  if ('serviceWorker' in navigator && location.protocol === 'https:' && !window.EMBEDDED_PROBLEMS) {
+    try { navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) {}
+  }
+})();
+</script>
+</body>
+</html>

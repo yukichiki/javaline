@@ -1,0 +1,17 @@
+{
+  "name": "Javaライン 通勤15分のJavaドリル",
+  "short_name": "Javaライン",
+  "description": "タップだけで解けるJava学習ドリル。Silver・実務・Goldの3路線を1日15分ずつ進みます。",
+  "lang": "ja",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F3F5F2",
+  "theme_color": "#506A8E",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

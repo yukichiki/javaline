@@ -1,0 +1,1876 @@
+{
+ "version": 1,
+ "curriculum": {
+  "tracks": [
+   {
+    "id": "silver",
+    "name": "Silver線",
+    "badge": "S",
+    "color": "silver",
+    "desc": "言語の基礎を固める"
+   },
+   {
+    "id": "practice",
+    "name": "実務線",
+    "badge": "P",
+    "color": "practice",
+    "desc": "現場で使う力をつける"
+   },
+   {
+    "id": "gold",
+    "name": "Gold線",
+    "badge": "G",
+    "color": "gold",
+    "desc": "Javaを深く使いこなす"
+   }
+  ],
+  "stages": [
+   {
+    "id": "S1",
+    "track": "silver",
+    "title": "Javaの基本",
+    "topics": "mainメソッド、コンパクト・ソースファイル、変数とデータ型、var、演算子の優先順位、Math",
+    "goal": "簡単な計算プログラムの出力を予測できる",
+    "unlock": []
+   },
+   {
+    "id": "S2",
+    "track": "silver",
+    "title": "制御構文",
+    "topics": "if/else、switch文とswitch式、for、while、拡張for",
+    "goal": "ループと分岐の動きを1行ずつ追える",
+    "unlock": [
+     "S1"
+    ]
+   },
+   {
+    "id": "S3",
+    "track": "silver",
+    "title": "文字列と配列",
+    "topics": "String、StringBuilder、配列、ArrayListの基礎",
+    "goal": "文字列と配列の操作結果を予測できる",
+    "unlock": [
+     "S2"
+    ]
+   },
+   {
+    "id": "S4",
+    "track": "silver",
+    "title": "メソッドとstatic",
+    "topics": "引数と戻り値、可変長引数、オーバーロード、static、初期化子",
+    "goal": "メソッドを組み立て、呼び出しの流れを説明できる",
+    "unlock": [
+     "S3"
+    ]
+   },
+   {
+    "id": "S5",
+    "track": "silver",
+    "title": "クラスとカプセル化",
+    "topics": "コンストラクタ、柔軟なコンストラクタ本体、アクセス修飾子、record、enum",
+    "goal": "用途に合ったクラス・record・enumを選べる",
+    "unlock": [
+     "S4"
+    ]
+   },
+   {
+    "id": "S6",
+    "track": "silver",
+    "title": "継承とインタフェース",
+    "topics": "継承、オーバーライド、キャスト、インタフェース、シール・クラス",
+    "goal": "継承関係のあるコードでどのメソッドが呼ばれるか判断できる",
+    "unlock": [
+     "S5"
+    ],
+    "milestone": "Bronze受験の目安"
+   },
+   {
+    "id": "S7",
+    "track": "silver",
+    "title": "例外処理",
+    "topics": "try-catch-finally、検査例外と非検査例外、独自例外、try-with-resources",
+    "goal": "例外が起きる箇所と処理の流れを特定できる",
+    "unlock": [
+     "S6"
+    ]
+   },
+   {
+    "id": "S8",
+    "track": "silver",
+    "title": "モダン構文と総仕上げ",
+    "topics": "パターン・マッチング、無名変数、ラムダ式の基礎、Silver模試",
+    "goal": "Silver模試で安定して65%以上を取れる",
+    "unlock": [
+     "S7"
+    ],
+    "milestone": "Silver受験の目安"
+   },
+   {
+    "id": "P1",
+    "track": "practice",
+    "title": "エラーログ読解",
+    "topics": "スタックトレース、よくある例外、コンパイルエラーの読み方",
+    "goal": "スタックトレースから原因の行と理由を特定できる",
+    "unlock": [
+     "S2"
+    ]
+   },
+   {
+    "id": "P2",
+    "track": "practice",
+    "title": "Git・チーム開発",
+    "topics": "commit、branch、merge、pull request、コンフリクト",
+    "goal": "状況に応じたGit操作を選び、コンフリクトの意味を説明できる",
+    "unlock": [
+     "S2"
+    ]
+   },
+   {
+    "id": "P3",
+    "track": "practice",
+    "title": "SQL基礎",
+    "topics": "SELECT、WHERE、ORDER BY、JOIN、集計",
+    "goal": "SELECT・WHERE・JOINの結果を予測できる",
+    "unlock": [
+     "S3"
+    ]
+   },
+   {
+    "id": "P4",
+    "track": "practice",
+    "title": "テスト",
+    "topics": "JUnit 5、正常系・異常系・境界値",
+    "goal": "仕様から正常系・異常系・境界値のテストを洗い出せる",
+    "unlock": [
+     "S4"
+    ]
+   },
+   {
+    "id": "P5",
+    "track": "practice",
+    "title": "コードレビュー",
+    "topics": "命名、責務分割、null安全性、可読性",
+    "goal": "命名・責務・null安全性の観点で問題を指摘できる",
+    "unlock": [
+     "S5"
+    ]
+   },
+   {
+    "id": "P6",
+    "track": "practice",
+    "title": "Spring Boot読解",
+    "topics": "Controller・Service・Repository、DI、アノテーション",
+    "goal": "Controller→Service→Repositoryの処理の流れを追える",
+    "unlock": [
+     "S6",
+     "P3"
+    ]
+   },
+   {
+    "id": "P7",
+    "track": "practice",
+    "title": "実務総合",
+    "topics": "注文処理・在庫管理風のコードでの修正・テスト・レビュー",
+    "goal": "業務システム風のコードでバグ修正・テスト・レビューを一通り行える",
+    "unlock": [
+     "G3",
+     "P6"
+    ]
+   },
+   {
+    "id": "G1",
+    "track": "gold",
+    "title": "ジェネリクスとコレクション",
+    "topics": "ジェネリクス、List・Set・Map、Sequenced Collections",
+    "goal": "データの性質に合ったコレクションを選べる",
+    "unlock": [
+     "S8"
+    ]
+   },
+   {
+    "id": "G2",
+    "track": "gold",
+    "title": "関数型インタフェース",
+    "topics": "ラムダ式、メソッド参照、標準の関数型インタフェース",
+    "goal": "ラムダ式を従来の書き方と対応づけて読める",
+    "unlock": [
+     "G1"
+    ]
+   },
+   {
+    "id": "G3",
+    "track": "gold",
+    "title": "Stream API",
+    "topics": "中間・終端操作、グループ化、プリミティブ・ストリーム、Gatherers",
+    "goal": "for文の処理をStreamに置き換えた結果を予測できる",
+    "unlock": [
+     "G2"
+    ]
+   },
+   {
+    "id": "G4",
+    "track": "gold",
+    "title": "並列処理",
+    "topics": "スレッド、仮想スレッド、ExecutorService、排他制御、Scoped Values",
+    "goal": "並列処理で起こりうる結果と危険を判断できる",
+    "unlock": [
+     "G3"
+    ]
+   },
+   {
+    "id": "G5",
+    "track": "gold",
+    "title": "ファイル入出力",
+    "topics": "Path、Files、入出力ストリーム",
+    "goal": "ファイル操作のコードの動作と例外を予測できる",
+    "unlock": [
+     "G4"
+    ]
+   },
+   {
+    "id": "G6",
+    "track": "gold",
+    "title": "JDBC",
+    "topics": "接続、PreparedStatement、トランザクション",
+    "goal": "JavaからDBを操作するコードを読み、問題点に気づける",
+    "unlock": [
+     "G5"
+    ]
+   },
+   {
+    "id": "G7",
+    "track": "gold",
+    "title": "モジュールとローカライズ",
+    "topics": "モジュール・システム、ローカライズ、Gold模試",
+    "goal": "Gold模試で安定して65%以上を取れる",
+    "unlock": [
+     "G6"
+    ],
+    "milestone": "Gold受験の目安"
+   }
+  ],
+  "mocks": [
+   {
+    "id": "mock-silver",
+    "track": "silver",
+    "name": "Silver模試",
+    "after": "S8",
+    "count": 7,
+    "minutes": 14
+   },
+   {
+    "id": "mock-gold",
+    "track": "gold",
+    "name": "Gold模試",
+    "after": "G7",
+    "count": 7,
+    "minutes": 14
+   }
+  ]
+ },
+ "diagnostic": [
+  {
+   "id": "d01",
+   "stage": "S1",
+   "title": "整数の割り算",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "int x = 7 / 2;\nSystem.out.println(x);"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "3.5",
+     "3",
+     "4",
+     "コンパイルエラー"
+    ],
+    "answer": 1
+   },
+   "explanation": "int同士の割り算では小数点以下が切り捨てられるため、3になります。"
+  },
+  {
+   "id": "d02",
+   "stage": "S1",
+   "title": "文字列の連結",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "System.out.println(1 + 2 + \"3\");"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "123",
+     "33",
+     "6",
+     "15"
+    ],
+    "answer": 1
+   },
+   "explanation": "左から順に計算されます。まず1 + 2で3、次に3 + \"3\"は文字列の連結になり\"33\"です。"
+  },
+  {
+   "id": "d03",
+   "stage": "S2",
+   "title": "for文",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "for (int i = 0; i < 3; i++) {\n    System.out.print(i);\n}"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "123",
+     "0123",
+     "012",
+     "12"
+    ],
+    "answer": 2
+   },
+   "explanation": "iは0・1・2と変化し、3になったところで条件i < 3を満たさなくなって終わります。"
+  },
+  {
+   "id": "d04",
+   "stage": "S2",
+   "title": "条件分岐",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "int a = 5;\nif (a > 3 && a < 5) {\n    System.out.println(\"A\");\n} else if (a >= 5) {\n    System.out.println(\"B\");\n} else {\n    System.out.println(\"C\");\n}"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "A",
+     "B",
+     "C",
+     "AとB"
+    ],
+    "answer": 1
+   },
+   "explanation": "a < 5は「5 < 5」なのでfalseです。&&は両方trueのときだけtrueなので最初の条件は不成立、次のa >= 5が成立してBが出力されます。"
+  },
+  {
+   "id": "d05",
+   "stage": "S3",
+   "title": "配列の範囲",
+   "question": "次のコードを実行するとどうなる？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "int[] arr = {10, 20, 30};\nSystem.out.println(arr[3]);"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "30が出力される",
+     "0が出力される",
+     "コンパイルエラーになる",
+     "実行時に例外が発生する"
+    ],
+    "answer": 3
+   },
+   "explanation": "インデックスは0から始まるため、使えるのはarr[0]〜arr[2]です。arr[3]で実行時にArrayIndexOutOfBoundsExceptionが発生します。"
+  },
+  {
+   "id": "d06",
+   "stage": "S3",
+   "title": "StringBuilder",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "StringBuilder sb = new StringBuilder(\"ab\");\nsb.append(\"c\").reverse();\nSystem.out.println(sb);"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "abc",
+     "cba",
+     "ab",
+     "ba"
+    ],
+    "answer": 1
+   },
+   "explanation": "StringBuilderは中身そのものを書き換えます。append(\"c\")で\"abc\"、reverse()で\"cba\"になります。"
+  },
+  {
+   "id": "d07",
+   "stage": "S4",
+   "title": "オーバーロード",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "static void show(int x) {\n    System.out.println(\"int\");\n}\nstatic void show(double x) {\n    System.out.println(\"double\");\n}\n\n// mainメソッド内\nshow(5);"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "int",
+     "double",
+     "intとdouble",
+     "コンパイルエラー"
+    ],
+    "answer": 0
+   },
+   "explanation": "同じ名前で引数の型が違うメソッドを複数定義することをオーバーロードと呼びます。5はint型なので、引数がintのほうが呼ばれます。"
+  },
+  {
+   "id": "d08",
+   "stage": "S5",
+   "title": "record",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "record Point(int x, int y) {}\n\n// mainメソッド内\nPoint p = new Point(1, 2);\nSystem.out.println(p.x() + p.y());"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "3",
+     "12",
+     "Point[x=1, y=2]",
+     "コンパイルエラー"
+    ],
+    "answer": 0
+   },
+   "explanation": "recordは、値を持つだけのクラスを短く書くための仕組みです。項目名と同じ名前のメソッドx()・y()が自動で作られ、1 + 2で3が出力されます。"
+  },
+  {
+   "id": "d09",
+   "stage": "S6",
+   "title": "オーバーライド",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "class A {\n    void hello() { System.out.print(\"A\"); }\n}\nclass B extends A {\n    void hello() { System.out.print(\"B\"); }\n}\n\n// mainメソッド内\nA obj = new B();\nobj.hello();"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "A",
+     "B",
+     "AB",
+     "コンパイルエラー"
+    ],
+    "answer": 1
+   },
+   "explanation": "変数の型はAでも、中身はBのオブジェクトです。実行時には実際のオブジェクトのメソッド（Bのhello）が呼ばれます。"
+  },
+  {
+   "id": "d10",
+   "stage": "S7",
+   "title": "例外の流れ",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "try {\n    System.out.print(\"1\");\n    int n = 1 / 0;\n    System.out.print(\"2\");\n} catch (ArithmeticException e) {\n    System.out.print(\"3\");\n} finally {\n    System.out.print(\"4\");\n}"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "1234",
+     "134",
+     "13",
+     "14"
+    ],
+    "answer": 1
+   },
+   "explanation": "1を出力後、1 / 0で例外が発生して2は飛ばされ、catchで3、finallyは必ず実行されるので4。結果は134です。"
+  }
+ ],
+ "problems": [
+  {
+   "id": "s1-01",
+   "stage": "S1",
+   "title": "printとprintln",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "System.out.print(\"A\");\nSystem.out.println(\"B\");\nSystem.out.print(\"C\");"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "ABC",
+     "AB\nC",
+     "A\nB\nC",
+     "A\nBC"
+    ],
+    "answer": 1
+   },
+   "output": "AB\nC",
+   "explanation": "printは出力した後に改行しません。printlnは出力した後に改行します。そのためAとBが同じ行に並び、Bの後で改行されてからCが出力されます。",
+   "miniLecture": "printlnの「ln」はline（行）の略です。現場のログ出力でも「改行されるかどうか」で見た目が大きく変わるので、2つの違いはしっかり押さえておきましょう。",
+   "examTopic": "Silver: Javaの基本",
+   "tags": [
+    "println",
+    "print"
+   ]
+  },
+  {
+   "id": "s1-02",
+   "stage": "S1",
+   "title": "mainメソッドの形",
+   "question": "Hiと出力するプログラムになるよう、空欄をタップして埋めてください。",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "public class Main {\n    public {{0}} void main(String[] args) {\n        System.out.{{1}}(\"Hi\");\n    }\n}"
+    }
+   ],
+   "interaction": {
+    "mode": "fillBlanks",
+    "blanks": [
+     {
+      "choices": [
+       "static",
+       "final",
+       "class",
+       "new"
+      ],
+      "answer": 0
+     },
+     {
+      "choices": [
+       "println",
+       "write",
+       "echo",
+       "display"
+      ],
+      "answer": 0
+     }
+    ]
+   },
+   "output": "Hi",
+   "explanation": "従来のmainメソッドは「public static void main(String[] args)」と書きます。staticは「オブジェクトを作らなくても呼び出せる」という意味で、プログラムの入口であるmainに付けます。画面への出力はSystem.out.printlnです。",
+   "miniLecture": "mainメソッドはプログラムの入口です。Javaを起動すると、まずここが実行されます。Java 25では省略した書き方もできますが、現場のコードはこの形がほとんどです。",
+   "examTopic": "Silver: Javaの基本",
+   "tags": [
+    "main",
+    "static"
+   ]
+  },
+  {
+   "id": "s1-03",
+   "stage": "S1",
+   "title": "余りとMath.max",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "int a = 17 % 5;\nint b = Math.max(3, 7);\nSystem.out.println(a + b);"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "9",
+     "10",
+     "7",
+     "2"
+    ],
+    "answer": 0
+   },
+   "output": "9",
+   "explanation": "%は割り算の余りを求める演算子です。17 ÷ 5 = 3 余り 2 なので、aは2です。Math.max(3, 7)は大きいほうの7を返します。2 + 7で9になります。",
+   "miniLecture": "%（剰余演算子）は「偶数か奇数か」「3の倍数か」の判定によく使われます。Mathクラスには、max・min・abs（絶対値）など、計算に便利なメソッドがそろっています。",
+   "examTopic": "Silver: 演算子",
+   "tags": [
+    "演算子",
+    "Math"
+   ]
+  },
+  {
+   "id": "s1-04",
+   "stage": "S1",
+   "title": "演算子の優先順位",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "int r = 2 + 3 * 4;\nSystem.out.println(r);"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "20",
+     "14",
+     "24",
+     "9"
+    ],
+    "answer": 1
+   },
+   "output": "14",
+   "explanation": "算数と同じく、掛け算（*）は足し算（+）より先に計算されます。3 * 4 = 12、そこに2を足して14です。",
+   "miniLecture": "*・/・%は、+・-より優先順位が高い演算子です。計算の順番を変えたいときは(2 + 3) * 4のように括弧を使います。迷ったら括弧を付けるのが、読みやすいコードのコツです。",
+   "examTopic": "Silver: 演算子",
+   "tags": [
+    "演算子",
+    "優先順位"
+   ]
+  },
+  {
+   "id": "s1-05",
+   "stage": "S1",
+   "title": "数値と文字列の連結",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "System.out.println(1 + 2 + \"3\" + 4 + 5);"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "12345",
+     "3345",
+     "339",
+     "15"
+    ],
+    "answer": 1
+   },
+   "output": "3345",
+   "explanation": "+は左から順に計算されます。1 + 2は数値同士なので3。次の3 + \"3\"は片方が文字列なので連結されて\"33\"。その後は文字列に4、5が順に連結され\"3345\"になります。",
+   "miniLecture": "+の片側が文字列になった瞬間から、以降の+は「連結」になります。Silver試験で頻出の引っかけです。数値として足したい部分は括弧でくくりましょう。",
+   "examTopic": "Silver: 演算子",
+   "tags": [
+    "文字列連結",
+    "演算子"
+   ]
+  },
+  {
+   "id": "s1-06",
+   "stage": "S1",
+   "title": "コンパイルエラーを探す",
+   "question": "コンパイルエラーになる行をタップし、原因を選んでください。",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "public class Main {\n    public static void main(String[] args) {\n        int age = 20;\n        int price = 1980.5;\n        System.out.println(age);\n    }\n}"
+    }
+   ],
+   "interaction": {
+    "mode": "tapLine",
+    "target": 0,
+    "answerLine": 4,
+    "followUp": {
+     "prompt": "この行の問題は？",
+     "choices": [
+      "int型の変数に小数（double型）の値は代入できない",
+      "priceはJavaの予約語なので変数名に使えない",
+      "1980.5の後ろにfを付ける必要がある"
+     ],
+     "answer": 0
+    }
+   },
+   "explanation": "1980.5のような小数はdouble型です。intは整数しか入らない型なので、そのまま代入するとコンパイルエラーになります。小数を扱うならdouble price = 1980.5;と書きます。",
+   "miniLecture": "Javaは「型」に厳しい言語です。変数を宣言するときに型を決め、その型に合わない値はコンパイルの段階で弾かれます。このおかげで、実行前に多くのミスに気づけます。",
+   "examTopic": "Silver: データ型",
+   "tags": [
+    "データ型",
+    "コンパイルエラー"
+   ]
+  },
+  {
+   "id": "s1-07",
+   "stage": "S1",
+   "title": "合計金額を出す",
+   "question": "350と出力されるよう、行を正しい順に並べてください。使わない行が1つ含まれています。",
+   "materials": [],
+   "interaction": {
+    "mode": "order",
+    "checkIndent": false,
+    "lines": [
+     {
+      "id": "a",
+      "code": "int price = 100;",
+      "indent": 0
+     },
+     {
+      "id": "b",
+      "code": "int total = price * 3;",
+      "indent": 0
+     },
+     {
+      "id": "c",
+      "code": "total = total + 50;",
+      "indent": 0
+     },
+     {
+      "id": "d",
+      "code": "System.out.println(total);",
+      "indent": 0
+     },
+     {
+      "id": "x",
+      "code": "int total = total + 50;",
+      "indent": 0,
+      "distractor": true
+     }
+    ],
+    "answer": [
+     "a",
+     "b",
+     "c",
+     "d"
+    ]
+   },
+   "output": "350",
+   "explanation": "変数は使う前に宣言が必要なので、price → totalの順です。100 × 3 = 300に50を足して350にしてから出力します。「int total = total + 50;」は、すでにあるtotalをもう一度宣言しているのでコンパイルエラーになります。",
+   "miniLecture": "「int total = ...」は宣言（新しく作る）、「total = ...」は代入（中身を入れ替える）です。同じ名前の変数を同じ範囲で2回宣言することはできません。",
+   "examTopic": "Silver: Javaの基本",
+   "tags": [
+    "変数",
+    "代入"
+   ]
+  },
+  {
+   "id": "s1-08",
+   "stage": "S1",
+   "title": "varと型",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "var x = 10;\nvar y = 2.5;\nSystem.out.println(x * y);"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "25",
+     "25.0",
+     "25.5",
+     "コンパイルエラー"
+    ],
+    "answer": 1
+   },
+   "output": "25.0",
+   "explanation": "varは、代入する値から型を自動で決める書き方です。xはint、yはdoubleになります。intとdoubleの計算結果はdoubleになるため、25.0と小数点付きで出力されます。",
+   "miniLecture": "intとdoubleを計算すると、範囲の広いdoubleに合わせられます（自動の型変換）。varは型を書く手間を省けますが、型がなくなるわけではありません。",
+   "examTopic": "Silver: データ型",
+   "tags": [
+    "var",
+    "型変換"
+   ]
+  },
+  {
+   "id": "s1-09",
+   "stage": "S1",
+   "title": "Java 25の短い書き方",
+   "question": "Java 25で、次の内容だけを書いたファイルを実行するとどうなる？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "void main() {\n    IO.println(\"Hello\");\n}"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "Helloと出力される",
+     "classがないのでコンパイルエラー",
+     "mainにstaticがないので実行時エラー",
+     "何も出力されない"
+    ],
+    "answer": 0
+   },
+   "output": "Hello",
+   "explanation": "Java 25からは「コンパクト・ソースファイル」と「インスタンスmainメソッド」が正式に使えるようになり、classやstatic、String[] argsを省略できます。IO.printlnは、この書き方のために用意された出力用のメソッドです。",
+   "miniLecture": "この短い書き方は学習や小さなツール向けで、Silver SE 25の出題範囲に入っています。一方、現場の業務システムは従来のclassを書く形がほとんどなので、両方読めるようにしておきましょう。",
+   "examTopic": "Silver: コンパクト・ソースファイル",
+   "tags": [
+    "Java 25",
+    "main"
+   ]
+  },
+  {
+   "id": "s1-10",
+   "stage": "S1",
+   "title": "変数の値を追う",
+   "question": "各行を実行した後のxの値を、空欄をタップして埋めてください。",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "int x = 5;\nx += 3;\nx *= 2;\nx--;"
+    },
+    {
+     "kind": "table",
+     "columns": [
+      "実行した行",
+      "xの値"
+     ],
+     "rows": [
+      [
+       "1行目",
+       "5"
+      ],
+      [
+       "2行目",
+       "{{0}}"
+      ],
+      [
+       "3行目",
+       "{{1}}"
+      ],
+      [
+       "4行目",
+       "{{2}}"
+      ]
+     ]
+    }
+   ],
+   "interaction": {
+    "mode": "fillBlanks",
+    "blanks": [
+     {
+      "choices": [
+       "8",
+       "15",
+       "16",
+       "10",
+       "6"
+      ],
+      "answer": 0
+     },
+     {
+      "choices": [
+       "8",
+       "15",
+       "16",
+       "10",
+       "6"
+      ],
+      "answer": 2
+     },
+     {
+      "choices": [
+       "8",
+       "15",
+       "16",
+       "10",
+       "6"
+      ],
+      "answer": 1
+     }
+    ]
+   },
+   "explanation": "x += 3はx = x + 3の省略形なので5 + 3 = 8。x *= 2は8 × 2 = 16。x--は1減らすので15です。",
+   "miniLecture": "+=・-=・*=などを複合代入演算子、++・--をインクリメント・デクリメント演算子と呼びます。ループで毎回使うので、見た瞬間に意味が分かるようにしておきましょう。",
+   "examTopic": "Silver: 演算子",
+   "tags": [
+    "複合代入",
+    "デクリメント"
+   ]
+  },
+  {
+   "id": "s2-01",
+   "stage": "S2",
+   "title": "switch式",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "int day = 3;\nString name = switch (day) {\n    case 1, 7 -> \"休日\";\n    case 2, 3, 4, 5, 6 -> \"平日\";\n    default -> \"不明\";\n};\nSystem.out.println(name);"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "休日",
+     "平日",
+     "不明",
+     "コンパイルエラー"
+    ],
+    "answer": 1
+   },
+   "output": "平日",
+   "explanation": "dayは3なので「case 2, 3, 4, 5, 6」に一致し、\"平日\"がnameに入ります。switch式では、矢印（->）の右側の値がそのまま結果になります。",
+   "miniLecture": "switch式は値を返すswitchです。矢印の書き方ではbreakが不要で、1つのcaseにカンマで複数の値を書けます。従来のswitch文よりミスが起きにくい書き方です。",
+   "examTopic": "Silver: switch",
+   "tags": [
+    "switch式"
+   ]
+  },
+  {
+   "id": "s2-02",
+   "stage": "S2",
+   "title": "breakを忘れたswitch",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "int n = 2;\nswitch (n) {\n    case 1:\n        System.out.print(\"A\");\n    case 2:\n        System.out.print(\"B\");\n    case 3:\n        System.out.print(\"C\");\n        break;\n    default:\n        System.out.print(\"D\");\n}"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "B",
+     "BC",
+     "BCD",
+     "ABC"
+    ],
+    "answer": 1
+   },
+   "output": "BC",
+   "explanation": "case 2から実行が始まりBを出力します。しかしcase 2にはbreakがないため、そのまま下のcase 3に進んでCも出力し、そこのbreakでswitchを抜けます。",
+   "miniLecture": "従来のswitch文でbreakを書き忘れると、下のcaseまで続けて実行されます（フォールスルー）。実務では不具合の原因になりやすく、Silver試験でも頻出です。",
+   "examTopic": "Silver: switch",
+   "tags": [
+    "switch文",
+    "break"
+   ]
+  },
+  {
+   "id": "s2-03",
+   "stage": "S2",
+   "title": "whileの変化を追う",
+   "question": "ループの各回で、加算した後のsumの値と、ループ終了後のiの値を埋めてください。",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "int i = 1;\nint sum = 0;\nwhile (i <= 4) {\n    sum += i;\n    i++;\n}"
+    },
+    {
+     "kind": "table",
+     "columns": [
+      "回",
+      "加えたi",
+      "sum"
+     ],
+     "rows": [
+      [
+       "1回目",
+       "1",
+       "1"
+      ],
+      [
+       "2回目",
+       "2",
+       "3"
+      ],
+      [
+       "3回目",
+       "3",
+       "{{0}}"
+      ],
+      [
+       "4回目",
+       "4",
+       "{{1}}"
+      ],
+      [
+       "終了後のi",
+       "",
+       "{{2}}"
+      ]
+     ]
+    }
+   ],
+   "interaction": {
+    "mode": "fillBlanks",
+    "blanks": [
+     {
+      "choices": [
+       "5",
+       "6",
+       "9",
+       "10",
+       "4"
+      ],
+      "answer": 1
+     },
+     {
+      "choices": [
+       "5",
+       "6",
+       "9",
+       "10",
+       "4"
+      ],
+      "answer": 3
+     },
+     {
+      "choices": [
+       "5",
+       "6",
+       "9",
+       "10",
+       "4"
+      ],
+      "answer": 0
+     }
+    ]
+   },
+   "explanation": "3回目は3 + 3 = 6、4回目は6 + 4 = 10です。4回目の最後にi++でiが5になり、条件i <= 4を満たさなくなってループが終わります。そのため終了後のiは5です。",
+   "miniLecture": "「ループが終わった後の変数の値」は、条件を満たさなくなった値（ここでは5）になります。境界の値を正しく追えると、実務の不具合調査でも強い武器になります。",
+   "examTopic": "Silver: ループ",
+   "tags": [
+    "while",
+    "トレース"
+   ]
+  },
+  {
+   "id": "s2-04",
+   "stage": "S2",
+   "title": "1から5までの合計",
+   "question": "1から5までの合計を出力するよう、行を並べてください。インデント（字下げ）も ← → で調整します。使わない行が1つあります。",
+   "materials": [],
+   "interaction": {
+    "mode": "order",
+    "checkIndent": true,
+    "lines": [
+     {
+      "id": "a",
+      "code": "int sum = 0;",
+      "indent": 0
+     },
+     {
+      "id": "b",
+      "code": "for (int i = 1; i <= 5; i++) {",
+      "indent": 0
+     },
+     {
+      "id": "c",
+      "code": "sum += i;",
+      "indent": 1
+     },
+     {
+      "id": "d",
+      "code": "}",
+      "indent": 0
+     },
+     {
+      "id": "e",
+      "code": "System.out.println(sum);",
+      "indent": 0
+     },
+     {
+      "id": "x",
+      "code": "int sum = i;",
+      "indent": 1,
+      "distractor": true
+     }
+    ],
+    "answer": [
+     "a",
+     "b",
+     "c",
+     "d",
+     "e"
+    ]
+   },
+   "output": "15",
+   "explanation": "合計を入れるsumは、ループの前で宣言して0にしておく必要があります。ループの中で宣言すると、繰り返すたびに作り直されて合計が積み上がりません。出力はループが終わった後に1回だけ行います。",
+   "miniLecture": "変数は、宣言された{ }の中でしか使えません。これを「スコープ」と呼びます。ループをまたいで値を持ち続けたい変数は、ループの外で宣言するのが基本です。",
+   "examTopic": "Silver: ループ",
+   "tags": [
+    "for",
+    "スコープ"
+   ]
+  },
+  {
+   "id": "s2-05",
+   "stage": "S2",
+   "title": "拡張for文で最大値",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "int[] nums = {3, 8, 2};\nint max = 0;\nfor (int n : nums) {\n    if (n > max) {\n        max = n;\n    }\n}\nSystem.out.println(max);"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "3",
+     "8",
+     "2",
+     "13"
+    ],
+    "answer": 1
+   },
+   "output": "8",
+   "explanation": "拡張for文は、配列の要素を先頭から1つずつnに入れて繰り返します。3はmax（0）より大きいのでmaxは3、8は3より大きいので8、2は8より小さいので変わらず、8が出力されます。",
+   "miniLecture": "「for (型 変数 : 配列)」は、全要素を順番に処理するときの定番の書き方です。インデックス（番号）が不要な場面では、こちらのほうが読みやすく、範囲外アクセスのミスも起きません。",
+   "examTopic": "Silver: ループ",
+   "tags": [
+    "拡張for",
+    "if"
+   ]
+  },
+  {
+   "id": "s2-06",
+   "stage": "S2",
+   "title": "1つ足りないループ",
+   "question": "1から10までを出力したいのに、10が出力されません。原因の行をタップし、修正案を選んでください。",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "for (int i = 1; i < 10; i++) {\n    System.out.println(i);\n}"
+    }
+   ],
+   "interaction": {
+    "mode": "tapLine",
+    "target": 0,
+    "answerLine": 1,
+    "followUp": {
+     "prompt": "正しい修正は？",
+     "choices": [
+      "i < 10 を i <= 10 にする",
+      "int i = 1 を int i = 0 にする",
+      "i++ を i-- にする"
+     ],
+     "answer": 0
+    }
+   },
+   "output": "1\n2\n3\n4\n5\n6\n7\n8\n9\n10",
+   "outputLabel": "修正後の実行結果",
+   "explanation": "条件がi < 10なので、iが10になった時点でループが終わり、10は出力されません。10も含めたいならi <= 10にします。int i = 0にすると、今度は0から9が出力されるだけです。",
+   "miniLecture": "ループの回数が1つずれる不具合は「オフバイワン（off-by-one）エラー」と呼ばれ、現場でも非常によく起きます。「<」と「<=」は、境界の値で必ず確認しましょう。",
+   "examTopic": "Silver: ループ",
+   "tags": [
+    "for",
+    "境界値",
+    "バグ"
+   ]
+  },
+  {
+   "id": "s2-07",
+   "stage": "S2",
+   "title": "else ifの順番",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "int score = 85;\nif (score >= 60) {\n    System.out.println(\"合格\");\n} else if (score >= 80) {\n    System.out.println(\"優秀\");\n} else {\n    System.out.println(\"不合格\");\n}"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "合格",
+     "優秀",
+     "合格と優秀",
+     "不合格"
+    ],
+    "answer": 0
+   },
+   "output": "合格",
+   "explanation": "if〜else ifは、上から順に条件を調べて最初に当てはまったブロックだけを実行します。85は最初のscore >= 60に当てはまるので「合格」が出力され、下の条件は調べられません。",
+   "miniLecture": "範囲で分岐するときは、厳しい条件（80以上）を先に書くのが鉄則です。この例では順番が逆なので、「優秀」が出力されることは永遠にありません。実務のレビューでよく指摘されるポイントです。",
+   "examTopic": "Silver: 条件分岐",
+   "tags": [
+    "if",
+    "else if"
+   ]
+  },
+  {
+   "id": "s2-08",
+   "stage": "S2",
+   "title": "3の倍数を飛ばす",
+   "question": "3の倍数だけを飛ばして「1245」と出力するよう、空欄を埋めてください。",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "for (int i = 1; i <= 6; i++) {\n    if (i {{0}} 3 == 0) {\n        {{1}};\n    }\n    System.out.print(i);\n}"
+    }
+   ],
+   "interaction": {
+    "mode": "fillBlanks",
+    "blanks": [
+     {
+      "choices": [
+       "%",
+       "/",
+       "*",
+       "=="
+      ],
+      "answer": 0
+     },
+     {
+      "choices": [
+       "continue",
+       "break",
+       "return",
+       "skip"
+      ],
+      "answer": 0
+     }
+    ]
+   },
+   "output": "1245",
+   "explanation": "i % 3 == 0で「3で割った余りが0」、つまり3の倍数かを判定します。continueはその回の残りの処理を飛ばして次の回に進みます。breakにするとループ自体が終わり「12」しか出力されません。",
+   "miniLecture": "continueは「この回はスキップ」、breakは「ループを終了」です。skipというキーワードはJavaにはありません。",
+   "examTopic": "Silver: ループ",
+   "tags": [
+    "continue",
+    "剰余"
+   ]
+  },
+  {
+   "id": "s2-09",
+   "stage": "S2",
+   "title": "ちょうど3回",
+   "question": "Helloがちょうど3回出力されるものを、全て選んでください。",
+   "materials": [],
+   "interaction": {
+    "mode": "multi",
+    "codeChoices": true,
+    "choices": [
+     "for (int i = 0; i < 3; i++) {\n    System.out.println(\"Hello\");\n}",
+     "for (int i = 1; i <= 3; i++) {\n    System.out.println(\"Hello\");\n}",
+     "for (int i = 0; i <= 3; i++) {\n    System.out.println(\"Hello\");\n}",
+     "int i = 3;\nwhile (i > 0) {\n    System.out.println(\"Hello\");\n    i--;\n}"
+    ],
+    "answer": [
+     0,
+     1,
+     3
+    ]
+   },
+   "explanation": "1つ目はi = 0, 1, 2の3回、2つ目はi = 1, 2, 3の3回、4つ目はi = 3, 2, 1の3回です。3つ目はi = 0, 1, 2, 3の4回になります。",
+   "miniLecture": "回数は「開始値」「終了条件の<か<=か」「増減の向き」の3点で決まります。0から始めて<で止める書き方が、配列と相性が良いため最もよく使われます。",
+   "examTopic": "Silver: ループ",
+   "tags": [
+    "for",
+    "while",
+    "回数"
+   ]
+  },
+  {
+   "id": "s2-10",
+   "stage": "S2",
+   "title": "二重ループ",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "for (int i = 1; i <= 2; i++) {\n    for (int j = 1; j <= 3; j++) {\n        System.out.print(i * j + \" \");\n    }\n}"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "1 2 3 2 4 6",
+     "1 2 3 4 5 6",
+     "1 2 2 4 3 6",
+     "2 4 6"
+    ],
+    "answer": 0
+   },
+   "output": "1 2 3 2 4 6 ",
+   "explanation": "外側のiが1のとき、内側のjが1〜3まで回って1 2 3。次にiが2になり、jが再び1〜3まで回って2 4 6。内側のループは、外側の1回ごとに最初からやり直されます。",
+   "miniLecture": "二重ループは「表」を処理するときの基本形です。外側が行、内側が列と考えると分かりやすくなります。",
+   "examTopic": "Silver: ループ",
+   "tags": [
+    "ネスト",
+    "for"
+   ]
+  },
+  {
+   "id": "s3-01",
+   "stage": "S3",
+   "title": "substring",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "String s = \"Hello Java\";\nSystem.out.println(s.substring(6));"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "Java",
+     " Java",
+     "Hello",
+     "o Java"
+    ],
+    "answer": 0
+   },
+   "output": "Java",
+   "explanation": "文字列の位置は0から数えます。H=0、e=1、l=2、l=3、o=4、空白=5、J=6です。substring(6)は6番目から最後までを取り出すので\"Java\"です。",
+   "miniLecture": "substring(開始)は開始位置から最後まで、substring(開始, 終了)は開始から終了の1つ手前までを取り出します。「終了の位置は含まない」点が頻出です。",
+   "examTopic": "Silver: String",
+   "tags": [
+    "String",
+    "substring"
+   ]
+  },
+  {
+   "id": "s3-02",
+   "stage": "S3",
+   "title": "charAt",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "String s = \"programming\";\nSystem.out.println(s.charAt(3));"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "g",
+     "o",
+     "r",
+     "a"
+    ],
+    "answer": 0
+   },
+   "output": "g",
+   "explanation": "p=0、r=1、o=2、g=3なので、charAt(3)は\"g\"です。位置を1から数えると「o」と間違えやすいので注意しましょう。",
+   "miniLecture": "charAtは指定した位置の1文字をchar型で返します。文字列の長さ以上の位置を指定するとStringIndexOutOfBoundsExceptionが発生します。",
+   "examTopic": "Silver: String",
+   "tags": [
+    "String",
+    "charAt"
+   ]
+  },
+  {
+   "id": "s3-03",
+   "stage": "S3",
+   "title": "==とequals",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "String a = \"java\";\nString b = new String(\"java\");\nSystem.out.println(a == b);\nSystem.out.println(a.equals(b));"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "true\ntrue",
+     "false\ntrue",
+     "true\nfalse",
+     "false\nfalse"
+    ],
+    "answer": 1
+   },
+   "output": "false\ntrue",
+   "explanation": "==は「同じオブジェクトか」を比べます。new Stringで別のオブジェクトを作っているのでfalseです。equalsは「中身の文字が同じか」を比べるのでtrueです。",
+   "miniLecture": "文字列の比較には必ずequalsを使いましょう。==で比べると、たまたま動いたり動かなかったりする、発見しにくい不具合の原因になります。現場のコードレビューでも必ず指摘される点です。",
+   "examTopic": "Silver: String",
+   "tags": [
+    "String",
+    "equals"
+   ]
+  },
+  {
+   "id": "s3-04",
+   "stage": "S3",
+   "title": "Stringは変わらない",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "String s = \"abc\";\ns.toUpperCase();\nSystem.out.println(s);"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "abc",
+     "ABC",
+     "Abc",
+     "コンパイルエラー"
+    ],
+    "answer": 0
+   },
+   "output": "abc",
+   "explanation": "Stringは一度作ると中身を変えられません（イミュータブル）。toUpperCase()は大文字にした「新しい文字列」を返しますが、その結果を変数に入れていないので、sは\"abc\"のままです。",
+   "miniLecture": "大文字にした結果を使いたいならs = s.toUpperCase();と書きます。中身を直接書き換えたいときはStringBuilderを使います。",
+   "examTopic": "Silver: String",
+   "tags": [
+    "String",
+    "イミュータブル"
+   ]
+  },
+  {
+   "id": "s3-05",
+   "stage": "S3",
+   "title": "StringBuilderの操作",
+   "question": "次のコードの実行結果は？",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "StringBuilder sb = new StringBuilder(\"Java\");\nsb.insert(0, \"Hi \").append(\"!\");\nSystem.out.println(sb);"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "Hi Java!",
+     "Java!",
+     "JavaHi !",
+     "Hi Java"
+    ],
+    "answer": 0
+   },
+   "output": "Hi Java!",
+   "explanation": "insert(0, \"Hi \")で先頭に\"Hi \"が入り\"Hi Java\"、続くappend(\"!\")で末尾に\"!\"が付いて\"Hi Java!\"です。StringBuilderは中身そのものが変わるので、結果を代入し直す必要はありません。",
+   "miniLecture": "StringBuilderのメソッドは自分自身を返すため、sb.insert(...).append(...)のように続けて書けます（メソッドチェーン）。ループで文字列をつなげるときはStringBuilderを使うのが定石です。",
+   "examTopic": "Silver: StringBuilder",
+   "tags": [
+    "StringBuilder"
+   ]
+  },
+  {
+   "id": "s3-06",
+   "stage": "S3",
+   "title": "配列の書き換え",
+   "question": "ループ後の各要素の値を、空欄をタップして埋めてください。",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "int[] a = {2, 4, 6};\nfor (int i = 0; i < a.length; i++) {\n    a[i] = a[i] + i;\n}"
+    },
+    {
+     "kind": "table",
+     "columns": [
+      "i",
+      "変更前",
+      "変更後"
+     ],
+     "rows": [
+      [
+       "0",
+       "2",
+       "{{0}}"
+      ],
+      [
+       "1",
+       "4",
+       "{{1}}"
+      ],
+      [
+       "2",
+       "6",
+       "{{2}}"
+      ]
+     ]
+    }
+   ],
+   "interaction": {
+    "mode": "fillBlanks",
+    "blanks": [
+     {
+      "choices": [
+       "2",
+       "3",
+       "5",
+       "6",
+       "8"
+      ],
+      "answer": 0
+     },
+     {
+      "choices": [
+       "2",
+       "3",
+       "5",
+       "6",
+       "8"
+      ],
+      "answer": 2
+     },
+     {
+      "choices": [
+       "2",
+       "3",
+       "5",
+       "6",
+       "8"
+      ],
+      "answer": 4
+     }
+    ]
+   },
+   "explanation": "各要素に、そのインデックスiを足しています。a[0]は2 + 0 = 2、a[1]は4 + 1 = 5、a[2]は6 + 2 = 8です。",
+   "miniLecture": "a.lengthは配列の要素数です。配列ではlength（括弧なし）、文字列ではlength()（括弧あり）と書き方が違う点は、Silver試験の定番の引っかけです。",
+   "examTopic": "Silver: 配列",
+   "tags": [
+    "配列",
+    "トレース"
+   ]
+  },
+  {
+   "id": "s3-07",
+   "stage": "S3",
+   "title": "逆順に並べる",
+   "question": "「321」と出力するよう、行を並べてインデントも調整してください。使わない行が1つあります。",
+   "materials": [],
+   "interaction": {
+    "mode": "order",
+    "checkIndent": true,
+    "lines": [
+     {
+      "id": "a",
+      "code": "StringBuilder sb = new StringBuilder();",
+      "indent": 0
+     },
+     {
+      "id": "b",
+      "code": "for (int i = 3; i >= 1; i--) {",
+      "indent": 0
+     },
+     {
+      "id": "c",
+      "code": "sb.append(i);",
+      "indent": 1
+     },
+     {
+      "id": "d",
+      "code": "}",
+      "indent": 0
+     },
+     {
+      "id": "e",
+      "code": "System.out.println(sb);",
+      "indent": 0
+     },
+     {
+      "id": "x",
+      "code": "for (int i = 1; i <= 3; i++) {",
+      "indent": 0,
+      "distractor": true
+     }
+    ],
+    "answer": [
+     "a",
+     "b",
+     "c",
+     "d",
+     "e"
+    ]
+   },
+   "output": "321",
+   "explanation": "iを3から1まで減らしながらappendすると\"321\"になります。1から3へ増やすループを使うと\"123\"になってしまいます。StringBuilderはループの前に作り、出力はループの後に行います。",
+   "miniLecture": "i--で1ずつ減らすループは、逆順の処理でよく使います。終了条件をi >= 1にして、1も含めることを忘れないようにしましょう。",
+   "examTopic": "Silver: StringBuilder",
+   "tags": [
+    "StringBuilder",
+    "for"
+   ]
+  },
+  {
+   "id": "s3-08",
+   "stage": "S3",
+   "title": "合計で例外が起きる",
+   "question": "このコードは実行時に例外が発生します。原因の行をタップし、修正案を選んでください。",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "int[] scores = {80, 90, 70};\nint total = 0;\nfor (int i = 0; i <= scores.length; i++) {\n    total += scores[i];\n}\nSystem.out.println(total);"
+    }
+   ],
+   "interaction": {
+    "mode": "tapLine",
+    "target": 0,
+    "answerLine": 3,
+    "followUp": {
+     "prompt": "正しい修正は？",
+     "choices": [
+      "i <= scores.length を i < scores.length にする",
+      "int i = 0 を int i = 1 にする",
+      "total += scores[i] を total = scores[i] にする"
+     ],
+     "answer": 0
+    }
+   },
+   "output": "240",
+   "outputLabel": "修正後の実行結果",
+   "explanation": "要素は3つなので使えるインデックスは0〜2です。条件がi <= scores.length（i <= 3）だと、i = 3のときにscores[3]を読もうとしてArrayIndexOutOfBoundsExceptionが発生します。i < scores.lengthにすれば240が出力されます。",
+   "miniLecture": "配列をループするときは「0から始めて、< lengthで止める」が基本形です。<=と書いてしまうミスは非常に多く、実務線のP1でもこのエラーのログを読む練習をします。",
+   "examTopic": "Silver: 配列",
+   "tags": [
+    "配列",
+    "例外",
+    "バグ"
+   ]
+  },
+  {
+   "id": "s3-09",
+   "stage": "S3",
+   "title": "コンパイルできない宣言",
+   "question": "コンパイルエラーになるものを、全て選んでください。",
+   "materials": [],
+   "interaction": {
+    "mode": "multi",
+    "codeChoices": true,
+    "choices": [
+     "int[] a = new int[3];",
+     "int[] b = {1, 2, 3};",
+     "int c[] = new int[];",
+     "String s = 'Hello';"
+    ],
+    "answer": [
+     2,
+     3
+    ]
+   },
+   "explanation": "new int[]で配列を作るときは、要素数か初期値のどちらかが必要です。また、シングルクォート（'）はchar型の1文字用なので、'Hello'のように複数の文字は書けません。int c[]という書き方自体はJavaで認められています。",
+   "miniLecture": "文字列は\"ダブルクォート\"、1文字（char）は'シングルクォート'です。int[] aとint a[]はどちらも正しい書き方ですが、現場ではint[] aが一般的です。",
+   "examTopic": "Silver: 配列",
+   "tags": [
+    "配列",
+    "コンパイルエラー"
+   ]
+  },
+  {
+   "id": "s3-10",
+   "stage": "S3",
+   "title": "ArrayListの基本",
+   "question": "次のコードの実行結果は？（import文は省略しています）",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "List<Integer> list = new ArrayList<>();\nlist.add(10);\nlist.add(20);\nlist.add(1, 15);\nSystem.out.println(list.size() + \" \" + list.get(1));"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "3 15",
+     "3 20",
+     "2 15",
+     "3 10"
+    ],
+    "answer": 0
+   },
+   "output": "3 15",
+   "explanation": "10、20と追加した後、add(1, 15)はインデックス1の位置に15を割り込ませます。リストは[10, 15, 20]になり、要素数は3、get(1)は15です。",
+   "miniLecture": "ArrayListは、要素数を後から増減できる配列のようなものです。配列は作った時点で大きさが固定されるため、件数が変わるデータには現場ではほぼListを使います。",
+   "examTopic": "Silver: ArrayList",
+   "tags": [
+    "ArrayList",
+    "List"
+   ]
+  },
+  {
+   "id": "p1-01",
+   "stage": "P1",
+   "title": "エラーログの1行目",
+   "question": "このエラーログから読み取れることとして、正しいものはどれ？",
+   "materials": [
+    {
+     "kind": "log",
+     "content": "Exception in thread \"main\" java.lang.ArrayIndexOutOfBoundsException: Index 3 out of bounds for length 3\n\tat Main.main(Main.java:4)"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "Main.javaの4行目で、長さ3の配列のインデックス3を読もうとした",
+     "Main.javaの3行目で、コンパイルエラーが起きた",
+     "配列の長さが4なのに、インデックス3を読もうとした",
+     "メモリが足りなくなってプログラムが止まった"
+    ],
+    "answer": 0
+   },
+   "explanation": "1行目は「例外の種類: 詳しいメッセージ」です。Index 3 out of bounds for length 3は「長さ3の配列に対してインデックス3は範囲外」という意味です。2行目のat Main.main(Main.java:4)が、発生した場所（ファイル名と行番号）です。",
+   "miniLecture": "エラーログは、まず1行目で「何が起きたか」、次にatで始まる行で「どこで起きたか」を読みます。英語に見えても、決まった型が繰り返されるだけなので、パターンを覚えれば素早く読めるようになります。",
+   "examTopic": "実務: エラーログ",
+   "tags": [
+    "スタックトレース",
+    "配列"
+   ]
+  },
+  {
+   "id": "p1-02",
+   "stage": "P1",
+   "title": "NullPointerException",
+   "question": "ログを見て、例外が起きたコードの行をタップし、原因を選んでください。",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "public class Main {\n    static String name;\n\n    public static void main(String[] args) {\n        String greeting = \"Hello\";\n        System.out.println(greeting.length());\n        System.out.println(name.length());\n    }\n}"
+    },
+    {
+     "kind": "log",
+     "content": "5\nException in thread \"main\" java.lang.NullPointerException: Cannot invoke \"String.length()\" because \"Main.name\" is null\n\tat Main.main(Main.java:7)"
+    }
+   ],
+   "interaction": {
+    "mode": "tapLine",
+    "target": 0,
+    "answerLine": 7,
+    "followUp": {
+     "prompt": "原因は？",
+     "choices": [
+      "nameに値が入っておらずnullのまま、length()を呼び出した",
+      "greetingがnullなので、length()を呼び出せなかった",
+      "length()はStringのメソッドではない"
+     ],
+     "answer": 0
+    }
+   },
+   "explanation": "ログの最後のat Main.main(Main.java:7)が発生場所です。メッセージにも「Main.nameがnullなので、String.length()を呼べない」と書かれています。nameは宣言しただけで値を入れていないため、nullのままです。最初の5は、6行目が正常に出力したものです。",
+   "miniLecture": "NullPointerException（通称ヌルポ）は、現場で最もよく出会う例外です。最近のJavaは「どの変数がnullだったか」までメッセージで教えてくれるので、メッセージを最後まで読むのが解決への近道です。",
+   "examTopic": "実務: エラーログ",
+   "tags": [
+    "NullPointerException",
+    "スタックトレース"
+   ]
+  },
+  {
+   "id": "p1-03",
+   "stage": "P1",
+   "title": "呼び出し元をたどる",
+   "question": "ログを見て、例外が実際に起きた行をタップし、原因を選んでください。",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "public class Main {\n    public static void main(String[] args) {\n        int[] data = {};\n        System.out.println(average(data));\n    }\n\n    static int average(int[] nums) {\n        int sum = 0;\n        for (int n : nums) {\n            sum += n;\n        }\n        return sum / nums.length;\n    }\n}"
+    },
+    {
+     "kind": "log",
+     "content": "Exception in thread \"main\" java.lang.ArithmeticException: / by zero\n\tat Main.average(Main.java:12)\n\tat Main.main(Main.java:4)"
+    }
+   ],
+   "interaction": {
+    "mode": "tapLine",
+    "target": 0,
+    "answerLine": 12,
+    "followUp": {
+     "prompt": "原因は？",
+     "choices": [
+      "配列が空でnums.lengthが0になり、0で割り算した",
+      "sumを初期化していない",
+      "拡張for文では空の配列を扱えない"
+     ],
+     "answer": 0
+    }
+   },
+   "explanation": "atの行は上から「例外が起きた場所」「そこを呼び出した場所」の順に並びます。一番上のMain.average(Main.java:12)が発生場所で、4行目はそれを呼び出した場所です。空の配列ではnums.lengthが0になり、整数を0で割ってArithmeticExceptionが発生しました。",
+   "miniLecture": "atの行の並び（スタックトレース）は、メソッドの呼び出しの履歴を逆順に記録したものです。原因調査は一番上から読み、自分のコードではない行はひとまず飛ばすのがコツです。",
+   "examTopic": "実務: エラーログ",
+   "tags": [
+    "スタックトレース",
+    "ArithmeticException"
+   ]
+  },
+  {
+   "id": "p1-04",
+   "stage": "P1",
+   "title": "コンパイルエラーのメッセージ",
+   "question": "このメッセージの意味として、正しいものはどれ？",
+   "materials": [
+    {
+     "kind": "log",
+     "content": "Main.java:5: error: cannot find symbol\n        System.out.println(totl);\n                           ^\n  symbol:   variable totl\n  location: class Main\n1 error"
+    }
+   ],
+   "interaction": {
+    "mode": "single",
+    "choices": [
+     "5行目で、宣言されていない変数totlを使っている（スペルミスの可能性が高い）",
+     "5行目を実行したときに、例外が発生した",
+     "totlの型が、printlnで出力できない型になっている",
+     "Mainクラスがどこにも見つからない"
+    ],
+    "answer": 0
+   },
+   "explanation": "cannot find symbolは「その名前が見つからない」という意味で、symbol: variable totlが見つからなかった名前です。^の印が問題の位置を指しています。おそらくtotalのスペルミスです。これは実行前のコンパイルの段階で出るエラーです。",
+   "miniLecture": "日本語の環境では「エラー: シンボルを見つけられません」と表示されます。コンパイルエラーは「ファイル名:行番号: error: 内容」という形で出るので、まず行番号を確認しましょう。",
+   "examTopic": "実務: エラーログ",
+   "tags": [
+    "コンパイルエラー"
+   ]
+  },
+  {
+   "id": "p1-05",
+   "stage": "P1",
+   "title": "ヌルポを防ぐ書き方",
+   "question": "NullPointerExceptionを防ぐ書き方として、適切なものを全て選んでください。（nameとroleはnullの可能性があるString型の変数です）",
+   "materials": [],
+   "interaction": {
+    "mode": "multi",
+    "codeChoices": true,
+    "choices": [
+     "if (name != null) {\n    System.out.println(name.length());\n}",
+     "if (\"admin\".equals(role)) {\n    // 管理者の処理\n}",
+     "try {\n    System.out.println(name.length());\n} catch (Exception e) {\n}",
+     "if (name.length() != 0) {\n    System.out.println(name);\n}"
+    ],
+    "answer": [
+     0,
+     1
+    ]
+   },
+   "explanation": "1つ目は事前にnullでないことを確かめています。2つ目は、nullにならない\"admin\"の側からequalsを呼んでいるので、roleがnullでもfalseになるだけです。3つ目は例外を握りつぶしているだけで、問題を隠してしまう悪い書き方です。4つ目はnameがnullならname.length()の時点で例外が発生します。",
+   "miniLecture": "「例外をcatchして何もしない」書き方は、エラーが起きても誰も気づけなくなるため、レビューで必ず指摘されます。nullの可能性がある値は、使う前に確かめるのが基本です。",
+   "examTopic": "実務: エラーログ",
+   "tags": [
+    "NullPointerException",
+    "null安全"
+   ]
+  },
+  {
+   "id": "p1-06",
+   "stage": "P1",
+   "title": "自分のコードの行を見つける",
+   "question": "このログで、最初に確認すべき「自分のコードの場所」を示す行をタップし、原因を選んでください。",
+   "materials": [
+    {
+     "kind": "code",
+     "content": "public class Main {\n    public static void main(String[] args) {\n        String input = \"12a\";\n        int num = Integer.parseInt(input);\n        System.out.println(num * 2);\n    }\n}"
+    },
+    {
+     "kind": "log",
+     "content": "Exception in thread \"main\" java.lang.NumberFormatException: For input string: \"12a\"\n\tat java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)\n\tat java.base/java.lang.Integer.parseInt(Integer.java:662)\n\tat java.base/java.lang.Integer.parseInt(Integer.java:778)\n\tat Main.main(Main.java:4)"
+    }
+   ],
+   "interaction": {
+    "mode": "tapLine",
+    "target": 1,
+    "answerLine": 5,
+    "followUp": {
+     "prompt": "原因は？",
+     "choices": [
+      "\"12a\"に数字以外の文字が含まれていて、数値に変換できなかった",
+      "Integer.parseIntの中にJavaのバグがある",
+      "num * 2の計算で、intの範囲を超えた"
+     ],
+     "answer": 0
+    }
+   },
+   "explanation": "java.baseで始まる行はJava本体の内部処理です。自分のコードはat Main.main(Main.java:4)の行で、ここでparseIntを呼んでいます。1行目のFor input string: \"12a\"から、\"12a\"を数値に変換しようとして失敗したと分かります。",
+   "miniLecture": "ログの上のほうにJava本体やライブラリの行が並んでいても、原因はたいてい自分のコードの使い方にあります。「自分のパッケージ名やクラス名が出てくる最初の行」を探すのが、現場の調査の基本動作です。Java本体の行番号はバージョンによって変わります。",
+   "examTopic": "実務: エラーログ",
+   "tags": [
+    "NumberFormatException",
+    "スタックトレース"
+   ]
+  }
+ ]
+}
